@@ -1,30 +1,26 @@
 package simulationProgram.simRobot;
 
+import commonInterface.AbstractRobot;
 import commonInterface.Robot;
 
-public class SimRobot implements Robot {
-
-	@Override
-	public boolean tooCloseFromAnObstacle() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public double getCollisionTreshold() {
-		// TODO Auto-generated method stub
-		return 0;
+public class SimRobot extends AbstractRobot implements Robot{
+	
+	public SimRobot() {
+		setRobotMotors();
+		setRobotCaptors();
 	}
 
 	@Override
 	public void setRobotMotors() {
-		// TODO Auto-generated method stub
-		
+		robotMotors.add(new SimMotor());
+		robotMotors.add(new SimMotor());
 	}
 
 	@Override
 	public void setRobotCaptors() {
-		// TODO Auto-generated method stub
+		for (int cptrID = 0; cptrID<5; cptrID++) {
+			robotCaptors.add(new SimCaptor());
+		}
 		
 	}
 

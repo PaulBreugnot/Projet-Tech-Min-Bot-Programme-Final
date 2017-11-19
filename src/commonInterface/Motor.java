@@ -4,6 +4,6 @@ package commonInterface;
 public interface Motor {
 
 	int getSpeed(); //An integer between 0 and 255
-	void setSpeed();
+	void setSpeed(int speed);
 	
 }

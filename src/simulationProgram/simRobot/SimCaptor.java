@@ -4,10 +4,11 @@ import commonInterface.Captor;
 
 public class SimCaptor implements Captor{
 
+	private double distance; // Measured distance in meter
+	
 	@Override
 	public double getDistance() {
-		// TODO Auto-generated method stub
-		return 0;
+		return distance;
 	}
 
 }
