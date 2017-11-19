@@ -5,7 +5,16 @@ import commonInterface.Robot;
 
 public class SimRobot extends AbstractRobot implements Robot{
 	
-	public SimRobot() {
+	public double xPos;
+	public double yPos;
+	public double alphaOrientation;
+	public double wheelRadius = 0.1;
+	public static double robotSize = 0.2;
+	
+	public SimRobot(double xPos, double yPos, double alphaOrientation) {
+		this.xPos = xPos;
+		this.yPos = yPos;
+		this.alphaOrientation = alphaOrientation;
 		setRobotMotors();
 		setRobotCaptors();
 	}
@@ -22,6 +31,18 @@ public class SimRobot extends AbstractRobot implements Robot{
 			robotCaptors.add(new SimCaptor());
 		}
 		
+	}
+	
+	public double getXPos() {
+		return xPos;
+	}
+	
+	public double getYPos() {
+		return yPos;
+	}
+	
+	public double getAlphaOrientation() {
+		return alphaOrientation;
 	}
 
 }
