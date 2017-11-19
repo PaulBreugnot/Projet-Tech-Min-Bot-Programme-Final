@@ -29,4 +29,12 @@ public abstract class AbstractRobot {
 		}
 		return false;
 	}
+	
+	public int getV1() {
+		return robotMotors.get(0).getSpeed();
+	}
+	
+	public int getV2() {
+		return robotMotors.get(1).getSpeed();
+	}
 }

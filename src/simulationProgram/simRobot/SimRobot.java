@@ -5,16 +5,16 @@ import commonInterface.Robot;
 
 public class SimRobot extends AbstractRobot implements Robot{
 	
-	public double xPos;
-	public double yPos;
-	public double alphaOrientation;
-	public double wheelRadius = 0.1;
-	public static double robotSize = 0.2;
+	private double xPos;
+	private double yPos;
+	private double alphaOrientation;
+	private double wheelRadius = 0.1;
+	private double robotSize = 0.2; //Radius of the robot modeled by a circle
 	
-	public SimRobot(double xPos, double yPos, double alphaOrientation) {
-		this.xPos = xPos;
-		this.yPos = yPos;
-		this.alphaOrientation = alphaOrientation;
+	public SimRobot(double initXPos, double initYPos, double initAlphaOrientation) {
+		xPos = initXPos;
+		yPos = initYPos;
+		alphaOrientation = initAlphaOrientation;
 		setRobotMotors();
 		setRobotCaptors();
 	}
@@ -43,6 +43,26 @@ public class SimRobot extends AbstractRobot implements Robot{
 	
 	public double getAlphaOrientation() {
 		return alphaOrientation;
+	}
+	
+	public void setXPos(double xPos) {
+		this.xPos = xPos;
+	}
+	
+	public void setYPos(double yPos) {
+		this.yPos = yPos;
+	}
+	
+	public void setAlphaOrientation(double alphaOrientation) {
+		this.alphaOrientation = alphaOrientation;
+	}
+	
+	public double getWheelRadius() {
+		return wheelRadius;
+	}
+	
+	public double getRobotSize() {
+		return robotSize;
 	}
 
 }
