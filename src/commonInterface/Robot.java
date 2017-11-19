@@ -1,9 +1,10 @@
 package commonInterface;
 
-import java.util.ArrayList;
+public interface Robot {
 
-public class Robot {
-	private ArrayList<Motor> robotMotors = new ArrayList<>();
-	private ArrayList<Captor> robotCaptors = new ArrayList<>();
-
+	boolean tooCloseFromAnObstacle();
+	double getCollisionTreshold();
+	
+	void setRobotMotors(); //Set a list of implemented interface Motor
+	void setRobotCaptors(); //Set a list of implemented interface Motor
 }
