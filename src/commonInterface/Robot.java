@@ -1,4 +1,4 @@
-package CommonInterface;
+package commonInterface;
 
 public class Robot {
 
