@@ -10,5 +10,10 @@ public class SimCaptor implements Captor{
 	public double getDistance() {
 		return distance;
 	}
+	
+	@Override
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
 
 }
