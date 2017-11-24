@@ -66,7 +66,9 @@ public class GraphicWindow {
 				@Override
 				public Void call() throws Exception {
 					for (int i = 1; i <= Integer.MAX_VALUE; i++) {
-						robot.setCenterX(robot.getCenterX() + 10);
+						//robot.setCenterX(robot.getCenterX() + 10);
+						updateDataLabels();
+						System.out.println("loop");
 						Thread.sleep(500);
 					}
 					return null;
@@ -140,16 +142,9 @@ public class GraphicWindow {
 		dataGridPane.add(new Label("Capteur 4 :"), 0, 3);
 		dataGridPane.add(new Label("Capteur 5 :"), 0, 4);
 
-		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(0).getDistance())), 1, 0);
-		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(1).getDistance())), 1, 1);
-		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(2).getDistance())), 1, 2);
-		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(3).getDistance())), 1, 3);
-		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(4).getDistance())), 1, 4);
-
 		dataGridPane.add(new Label("Motor 1 :"), 2, 0);
 		dataGridPane.add(new Label("Motor 2 :"), 2, 1);
-		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getV1())), 3, 0);
-		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getV2())), 3, 1);
+		setDataLabels();
 
 		dataRoot.getChildren().add(dataGridPane);
 	}
@@ -198,5 +193,21 @@ public class GraphicWindow {
 			obstacleShape.setFill(Color.GREEN);
 			mapPane.getChildren().add(obstacleShape);
 		}
+	}
+	
+	private void setDataLabels() {
+		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(0).getDistance())), 1, 0);
+		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(1).getDistance())), 1, 1);
+		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(2).getDistance())), 1, 2);
+		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(3).getDistance())), 1, 3);
+		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(4).getDistance())), 1, 4);
+		
+		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getV1())), 3, 0);
+		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getV2())), 3, 1);
+	}
+	
+	private void updateDataLabels() {
+		mainSimulationProgram.getRadar().updateCaptorDistances();
+		setDataLabels();
 	}
 }

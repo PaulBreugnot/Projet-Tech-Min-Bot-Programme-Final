@@ -18,14 +18,14 @@ public class Radar {
 	private double alphaOrientation;
 	private ArrayList<Captor> robotCaptors;
 	private double edgeDistance;
-	
+
 	private ArrayList<Obstacle> obstaclesList;
 	private SimRobot titi;
 	private Map map;
 
 	public boolean crash = false;
 	// il y a l'arraylist capteur, qu'il faut recuperer du robot
-	
+
 	public Radar(ArrayList<Obstacle> obstaclesList, SimRobot titi, Map map) {
 		this.obstaclesList = obstaclesList;
 		this.titi = titi;
@@ -43,7 +43,7 @@ public class Radar {
 		robotCaptors = titi.getRobotCaptors();
 
 		if (xRobot > mapWidth - robotSize || xRobot < robotSize || yRobot > mapHeight - robotSize
-				|| yRobot < mapHeight) {
+				|| yRobot < robotSize) {
 			// capteurs.set(0, (double) -1);
 			for (Captor captor : robotCaptors)
 				captor.setDistance(0);
@@ -51,7 +51,11 @@ public class Radar {
 			return;
 		}
 
-		for (int j = 1; j < 6; j++) {
+		for (int j = 0; j < 5; j++) {
+			if(obstaclesList.size()<1) {
+				edgeDistance = getEdgeDistance(alphaOrientation - 80 + 40 * j, xRobot, yRobot);
+				robotCaptors.get(j).setDistance(edgeDistance);
+			}
 
 			ArrayList<Double> measuredDistance = new ArrayList<>();
 			for (Obstacle obstacle : obstaclesList) {
@@ -63,13 +67,9 @@ public class Radar {
 					System.out.printf("lol");
 				}
 
-				// equation de la droite de vision du capteur
-				a = Math.tan(alphaOrientation);
-				b = (yRobot - xRobot);
-
 				ArrayList<Double> solutions = new ArrayList<Double>();
 				solutions = getIntersectionPoints(a, b, obstacle.getXPos(), obstacle.getYPos(), obstacle.getRadius());
-				edgeDistance = getEdgeDistance(a, b, alphaOrientation - 160 / 2 + 160 / 5 * j, xRobot, yRobot);
+				edgeDistance = getEdgeDistance(alphaOrientation - 80 + 40 * j, xRobot, yRobot);
 				// alpha-160/2+160/5*j
 				// est l'angle du
 				// capteur J
@@ -211,10 +211,19 @@ public class Radar {
 
 			}
 			robotCaptors.get(j).setDistance(MinArrayList.minArrayList(measuredDistance));
+			System.out.println("Captor " + j + ": " + robotCaptors.get(j).getDistance());
 		}
 	}
 
-	public double getEdgeDistance(double a, double b, double alpharadar, double xrobot, double yrobot) {
+	public double getEdgeDistance(double alpharadar, double xrobot, double yrobot) {
+		
+		double a;
+		double b;
+		
+		// equation de la droite de vision du capteur
+		a = Math.tan(alpharadar*Math.PI/180);
+		b = (yRobot - a * xRobot);
+		
 		double xintersection1;
 		double xintersection2;
 		double yintersection3;
@@ -224,13 +233,22 @@ public class Radar {
 		double d2;
 		double d3;
 		double d4;
+		
+		System.out.println("a = " + a);
+		System.out.println("b = " + b);
+		System.out.println("alpharadar = " + alpharadar);
 
 		xintersection1 = (b + mapHeight) / a;// haut
 		xintersection2 = b / a;// axe des abscisses
 		yintersection3 = a * mapWidth + b;// bord droit
 		yintersection4 = b;// bord gauche, axe des ordonnées
+		
+		System.out.println("x1 = " + xintersection1);
+		System.out.println("x2 = " + xintersection2);
+		System.out.println("y1 = " + yintersection3);
+		System.out.println("y2 = " + yintersection4);
 
-		if (0 < xintersection1 && xintersection1 < mapHeight) {
+		if (0 < xintersection1 && xintersection1 < mapWidth) {
 			d1 = Math.cbrt((mapHeight - yrobot) * (mapHeight - yrobot)
 					+ (xrobot - xintersection1) * (xrobot - xintersection1));
 		} else
@@ -249,10 +267,12 @@ public class Radar {
 		} else
 			d4 = -1;
 
-		if (0 <= alphaOrientation && alphaOrientation < Math.PI / 2 && d1 == -1) {
+		if (0 <= alpharadar && alpharadar < 90 && d1 == -1) {
 			return d3;
-		} else if (0 <= alphaOrientation && alphaOrientation < Math.PI / 2 && d3 == -1) {
+			//VERIF OK
+		} else if (0 <= alpharadar && alpharadar < 90 && d3 == -1) {
 			return d1;
+			//VERIF OK
 		} else if (Math.PI / 2 <= alphaOrientation && alphaOrientation < Math.PI && d1 == -1) {
 			return d4;
 		} else if (Math.PI / 2 <= alphaOrientation && alphaOrientation < Math.PI && d4 == -1) {
