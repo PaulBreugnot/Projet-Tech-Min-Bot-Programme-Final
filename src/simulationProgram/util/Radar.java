@@ -7,7 +7,7 @@ import simulationProgram.simMap.Map;
 import simulationProgram.simMap.Obstacle;
 import simulationProgram.simRobot.SimRobot;
 
-public abstract class Radar {
+public class Radar {
 	private double mapWidth;
 	private double mapHeight;
 	private double xRobot;
@@ -18,11 +18,21 @@ public abstract class Radar {
 	private double alphaOrientation;
 	private ArrayList<Captor> robotCaptors;
 	private double edgeDistance;
+	
+	private ArrayList<Obstacle> obstaclesList;
+	private SimRobot titi;
+	private Map map;
 
 	public boolean crash = false;
 	// il y a l'arraylist capteur, qu'il faut recuperer du robot
+	
+	public Radar(ArrayList<Obstacle> obstaclesList, SimRobot titi, Map map) {
+		this.obstaclesList = obstaclesList;
+		this.titi = titi;
+		this.map = map;
+	}
 
-	public void radar(ArrayList<Obstacle> ObstaclesList, SimRobot titi, Map map) {
+	public void updateCaptorDistances() {
 		mapWidth = map.getWidth();
 		mapHeight = map.getHeight();
 		xRobot = titi.getXPos();
@@ -44,7 +54,7 @@ public abstract class Radar {
 		for (int j = 1; j < 6; j++) {
 
 			ArrayList<Double> measuredDistance = new ArrayList<>();
-			for (Obstacle obstacle : ObstaclesList) {
+			for (Obstacle obstacle : obstaclesList) {
 				if ((obstacle.getXPos() - xRobot) * (obstacle.getXPos() - xRobot) + (obstacle.getYPos() - yRobot)
 						* (obstacle.getYPos() - yRobot) > (obstacle.getRadius() + robotSize)
 								* (obstacle.getRadius() + robotSize)) {
