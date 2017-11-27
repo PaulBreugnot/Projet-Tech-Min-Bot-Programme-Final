@@ -28,14 +28,14 @@ public abstract class Move {
 
 	public static ArrayList<Double[]> moveTest() {
 		ArrayList<Double[]> sequence = new ArrayList<>();
-		Double[] initCoordinates = { 0.25, 0.25, 45.0 };
+		Double[] initCoordinates = { 0.25, 0.25, 0.0 };
 		sequence.add(initCoordinates);
-		/*while (sequence.get(sequence.size() - 1)[2] < 45) {
+		while (sequence.get(sequence.size() - 1)[2] < 45) {
 			Double[] nextCoordinates = { 0.25, 0.25, sequence.get(sequence.size() - 1)[2] + 1 };
 			sequence.add(nextCoordinates);
-		}*/
+		}
 
-		/*while (sequence.get(sequence.size() - 1)[0] < 2.5 && sequence.get(sequence.size() - 1)[1] < 2.5) {
+		while (sequence.get(sequence.size() - 1)[0] < 2.5 && sequence.get(sequence.size() - 1)[1] < 2.5) {
 			Double[] nextCoordinates = { sequence.get(sequence.size() - 1)[0] + 0.1,
 					sequence.get(sequence.size() - 1)[1] + 0.1, 45.0 };
 			sequence.add(nextCoordinates);
@@ -48,7 +48,7 @@ public abstract class Move {
 			Double[] nextCoordinates = { sequence.get(sequence.size() - 1)[0], sequence.get(sequence.size() - 1)[1],
 					sequence.get(sequence.size() - 1)[2] + 1 };
 			sequence.add(nextCoordinates);
-		}*/
+		}
 		return sequence;
 	}
 }

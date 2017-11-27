@@ -94,7 +94,7 @@ public class GraphicWindow {
 						mainSimulationProgram.getRadar().updateCaptorDistances();
 						updateDataLabels();
 						updateGraphicItems();
-						Thread.sleep(30);
+						Thread.sleep(100);
 					}
 					return null;
 				}
