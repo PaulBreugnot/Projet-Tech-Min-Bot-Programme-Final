@@ -236,7 +236,9 @@ public class Radar {
 
 	public double getEdgeDistance(double alpharadar, double xrobot, double yrobot) {
 
-		alpharadar = alpharadar + 360;
+		if (alpharadar < 0) {
+			alpharadar = alpharadar + 360;
+		}
 		double a;
 		double b;
 
@@ -257,9 +259,13 @@ public class Radar {
 		System.out.println("a = " + a);
 		System.out.println("b = " + b);
 		System.out.println("alpharadar = " + alpharadar);
+		System.out.println("mapWidth = " + mapWidth);
+		System.out.println("mapHeight = " + mapHeight);
+		System.out.println("xRobot = " + xrobot);
+		System.out.println("yrobot = " + yrobot);
 
-		xintersection1 = (b + mapHeight) / a;// haut
-		xintersection2 = b / a;// axe des abscisses
+		xintersection1 = (mapHeight - b) / a;// haut
+		xintersection2 = -b / a;// axe des abscisses
 		yintersection3 = a * mapWidth + b;// bord droit
 		yintersection4 = b;// bord gauche, axe des ordonnées
 
@@ -273,21 +279,20 @@ public class Radar {
 		// d3 : distance to right edge if defined
 		// d4 : distance to left edge if defined
 		if (0 < xintersection1 && xintersection1 < mapWidth) {
-			d1 = Math.cbrt((mapHeight - yrobot) * (mapHeight - yrobot)
-					+ (xrobot - xintersection1) * (xrobot - xintersection1));
+			d1 = Math.sqrt(Math.pow(mapHeight - yrobot, 2)
+					+ Math.pow(xrobot - xintersection1, 2));
 		} else
 			d1 = -1;
 		if (0 < xintersection2 && xintersection2 < mapWidth) {
-			d2 = Math.cbrt((yrobot) * (yrobot) + (xrobot - xintersection2) * (xrobot - xintersection2));
+			d2 = Math.sqrt(Math.pow(yrobot,2) + Math.pow(xrobot - xintersection2, 2));
 		} else
 			d2 = -1;
 		if (0 < yintersection3 && yintersection3 < mapHeight) {
-			d3 = Math.cbrt(
-					(yintersection3 - yrobot) * (yintersection3 - yrobot) + (xrobot - mapWidth) * (xrobot - mapWidth));
+			d3 = Math.sqrt(Math.pow(yintersection3-yrobot,2) + Math.pow(mapWidth-xrobot, 2));
 		} else
 			d3 = -1;
 		if (0 < yintersection4 && yintersection4 < mapHeight) {
-			d4 = Math.cbrt((yintersection4 - yrobot) * (yintersection4 - yrobot) + (xrobot) * (xrobot));
+			d4 = Math.sqrt(Math.pow(yintersection4 - yrobot,2) + Math.pow(xrobot,2));
 		} else
 			d4 = -1;
 
@@ -295,7 +300,7 @@ public class Radar {
 		System.out.println("d2 = " + d2);
 		System.out.println("d3 = " + d3);
 		System.out.println("d4 = " + d4);
-		
+
 		if (0 <= alpharadar && alpharadar < 90 && d1 == -1) {
 			return d3;
 			// VERIF FORMELLE OK
@@ -319,7 +324,7 @@ public class Radar {
 			return d3;
 		} else
 			System.out.println("Salut!");
-			return d2;
+		return d2;
 
 	}
 

@@ -308,8 +308,8 @@ public class GraphicWindow {
 		System.out.println(captorOrientation);
 		double xFinal = xRobot + captor.getDistance()* Math.cos(captorOrientation * Math.PI/180) * scale;
 		double yFinal = yRobot + captor.getDistance()* Math.sin(captorOrientation * Math.PI/180) * scale;
-		System.out.println("xFinal : " + xFinal);
-		System.out.println("yFinal : " + yFinal);
+		System.out.println("xFinal : " + xFinal/scale);
+		System.out.println("yFinal : " + yFinal/scale);
 		coordinates.add(xRobot);
 		coordinates.add(yRobot);
 		coordinates.add(xFinal);
