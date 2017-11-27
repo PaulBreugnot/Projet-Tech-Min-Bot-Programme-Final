@@ -12,7 +12,7 @@ import simulationProgram.graph.GraphicWindow;
 
 public class MainSimulationProgram extends Application {
 
-	SimRobot titi = new SimRobot(0.25, 0.25, 0);
+	SimRobot titi = new SimRobot(0.25, 0.25, 45);
 	ArrayList<Obstacle> obstaclesList = new ArrayList<>();
 	Map map = new Map(5, 5);
 	Radar radar; 

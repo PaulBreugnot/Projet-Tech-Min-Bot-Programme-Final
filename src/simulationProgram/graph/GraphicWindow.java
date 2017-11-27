@@ -91,6 +91,7 @@ public class GraphicWindow {
 						mainSimulationProgram.getRobot().setXPos(coordinates[0]);
 						mainSimulationProgram.getRobot().setYPos(coordinates[1]);
 						mainSimulationProgram.getRobot().setAlphaOrientation(coordinates[2]);
+						mainSimulationProgram.getRadar().updateCaptorDistances();
 						updateDataLabels();
 						updateGraphicItems();
 						Thread.sleep(30);
@@ -244,7 +245,6 @@ public class GraphicWindow {
 	}
 	
 	private void updateDataLabels() {
-		mainSimulationProgram.getRadar().updateCaptorDistances();
 		Platform.runLater(() -> labelCaptor1.setText(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(0).getDistance())));
 		Platform.runLater(() -> labelCaptor2.setText(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(1).getDistance())));
 		Platform.runLater(() -> labelCaptor3.setText(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(2).getDistance())));
@@ -318,7 +318,7 @@ public class GraphicWindow {
 		double xRobot = mainSimulationProgram.getRobot().getXPos()*scale;
 		double yRobot = mainSimulationProgram.getRobot().getYPos()*scale;
 		double captorOrientation = mainSimulationProgram.getRobot().getAlphaOrientation() + captor.getCaptorOrientation();
-		System.out.println(captorOrientation);
+		System.out.println("Orientation = " + captorOrientation);
 		double xFinal = xRobot + captor.getDistance()* Math.cos(captorOrientation * Math.PI/180) * scale;
 		double yFinal = yRobot + captor.getDistance()* Math.sin(captorOrientation * Math.PI/180) * scale;
 		System.out.println("xFinal : " + xFinal/scale);

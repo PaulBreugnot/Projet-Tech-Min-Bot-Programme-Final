@@ -75,8 +75,8 @@ public class Radar {
 					if (solutions.size() == 0) {
 						// pas de solutions avec les obstacles, regarder le bord de terrain
 						edgeDistance = getEdgeDistance(alphaOrientation - 80 + 40 * j, xRobot, yRobot);
-						robotCaptors.get(j).setDistance(edgeDistance);
-						// return null; //Il faut assigner la distance au 5 capteurs non?
+						measuredDistance.add(edgeDistance);
+						
 					} else if (solutions.size() == 2) {
 						// 1seule solution : vérifier juste la demi-droite
 						if (0 < alphaOrientation && alphaOrientation < Math.PI) {
@@ -329,6 +329,8 @@ public class Radar {
 		double B = 2 * (-cx + a * b - a * cy);
 		double C = cx * cx + cy * cy + b * b - 2 * b * cy - r * r;
 		double delta = B * B - 4 * A * C;
+		
+		System.out.println("delta = " + delta);
 
 		if (delta > 0) {
 			double x = (-B - Math.cbrt(delta)) / (2 * A);
