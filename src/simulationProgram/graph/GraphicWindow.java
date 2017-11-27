@@ -2,6 +2,7 @@ package simulationProgram.graph;
 
 import simulationProgram.simMap.Obstacle;
 import simulationProgram.simRobot.SimCaptor;
+import simulationProgram.util.Move;
 import simulationProgram.MainSimulationProgram;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class GraphicWindow {
 	private double scale;
 	private Scene scene;
 
-	private Circle robot;
+	private Circle robotCircle;
 	private Label labelCaptor1;
 	private Label labelCaptor2;
 	private Label labelCaptor3;
@@ -45,6 +46,7 @@ public class GraphicWindow {
 	private Label labelV1;
 	private Label labelV2;
 	
+	public ArrayList<Double[]> testSequence = Move.moveTest();
 	
 	private GridPane dataGridPane;
 
@@ -85,12 +87,14 @@ public class GraphicWindow {
 			Task<Void> task = new Task<Void>() {
 				@Override
 				public Void call() throws Exception {
-					//for (int i = 1; i <= Integer.MAX_VALUE; i++) {
-						//robot.setCenterX(robot.getCenterX() + 150);
+					for (Double[] coordinates : testSequence) {
+						mainSimulationProgram.getRobot().setXPos(coordinates[0]);
+						mainSimulationProgram.getRobot().setYPos(coordinates[1]);
+						mainSimulationProgram.getRobot().setAlphaOrientation(coordinates[2]);
 						updateDataLabels();
-						System.out.println("loop");
-						Thread.sleep(500);
-					//}
+						updateGraphicItems();
+						Thread.sleep(30);
+					}
 					return null;
 				}
 			};
@@ -200,11 +204,16 @@ public class GraphicWindow {
 	}
 
 	public void setRobot(AnchorPane mapPane) {
-		robot = new Circle(mainSimulationProgram.getRobot().getXPos() * scale, mainSimulationProgram.getRobot().getYPos() * scale,
+		robotCircle = new Circle(mainSimulationProgram.getRobot().getXPos() * scale, mainSimulationProgram.getRobot().getYPos() * scale,
 				mainSimulationProgram.getRobot().getRobotSize() * scale);
-		robot.setFill(Color.RED);
+		robotCircle.setFill(Color.RED);
 
-		mapPane.getChildren().add(robot);
+		mapPane.getChildren().add(robotCircle);
+	}
+	
+	public void updateRobotCoordinates() {
+		robotCircle.setCenterX(mainSimulationProgram.getRobot().getXPos() * scale);
+		robotCircle.setCenterY(mainSimulationProgram.getRobot().getYPos() * scale);
 	}
 
 	public void setObstacles(AnchorPane mapPane) {
@@ -241,7 +250,11 @@ public class GraphicWindow {
 		Platform.runLater(() -> labelCaptor3.setText(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(2).getDistance())));
 		Platform.runLater(() -> labelCaptor4.setText(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(3).getDistance())));
 		Platform.runLater(() -> labelCaptor5.setText(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(4).getDistance())));
+	}
+	
+	private void updateGraphicItems() {
 		Platform.runLater(() -> updateLinesCoordinates());
+		Platform.runLater(() -> updateRobotCoordinates());
 	}
 	
 	private void initRadarLines(AnchorPane mapPane) {

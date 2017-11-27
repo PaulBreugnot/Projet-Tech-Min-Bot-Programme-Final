@@ -54,7 +54,17 @@ public class SimRobot extends AbstractRobot implements Robot{
 	}
 	
 	public void setAlphaOrientation(double alphaOrientation) {
-		this.alphaOrientation = alphaOrientation;
+		if (alphaOrientation < 0) {
+			this.alphaOrientation = alphaOrientation = alphaOrientation + 360;
+		}
+		
+		else if (alphaOrientation > 360) {
+			this.alphaOrientation = alphaOrientation = alphaOrientation - 360;
+		}
+		
+		else {
+			this.alphaOrientation = alphaOrientation;
+		}
 	}
 	
 	public double getWheelRadius() {

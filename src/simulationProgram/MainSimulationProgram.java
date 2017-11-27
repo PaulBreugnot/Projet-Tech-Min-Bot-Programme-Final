@@ -24,9 +24,9 @@ public class MainSimulationProgram extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		System.out.println("Start method inside Thread : " + Thread.currentThread().getName());
-		/*obstaclesList.add(new Obstacle(1.5, 1.5, 0.5));
+		//obstaclesList.add(new Obstacle(1.5, 1.5, 0.5));
 		obstaclesList.add(new Obstacle(4, 4, 0.7));
-		obstaclesList.add(new Obstacle(4, 1.5, 0.5));
+		/*obstaclesList.add(new Obstacle(4, 1.5, 0.5));
 		obstaclesList.add(new Obstacle(0.5, 3, 0.4));*/
 		GraphicWindow graphicWindow = new GraphicWindow(stage, this);
 		radar = new Radar(obstaclesList, titi, map);
