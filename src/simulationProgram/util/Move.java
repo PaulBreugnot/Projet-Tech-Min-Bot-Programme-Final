@@ -41,8 +41,7 @@ public abstract class Move {
 			sequence.add(nextCoordinates);
 		}
 
-		Double[] initRotation = { sequence.get(sequence.size() - 1)[0], sequence.get(sequence.size() - 1)[1],
-				sequence.get(sequence.size() - 1)[2] + 1 };
+		Double[] initRotation = { 2.5, 2.5, 45.0 };
 		sequence.add(initRotation);
 		for (int i = 0; i < 360; i++) {
 			Double[] nextCoordinates = { sequence.get(sequence.size() - 1)[0], sequence.get(sequence.size() - 1)[1],

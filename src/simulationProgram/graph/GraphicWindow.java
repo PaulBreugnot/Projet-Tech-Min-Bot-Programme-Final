@@ -3,6 +3,7 @@ package simulationProgram.graph;
 import simulationProgram.simMap.Obstacle;
 import simulationProgram.simRobot.SimCaptor;
 import simulationProgram.util.Move;
+import simulationProgram.util.Round;
 import simulationProgram.MainSimulationProgram;
 
 import java.util.ArrayList;
@@ -94,7 +95,7 @@ public class GraphicWindow {
 						mainSimulationProgram.getRadar().updateCaptorDistances();
 						updateDataLabels();
 						updateGraphicItems();
-						Thread.sleep(100);
+						Thread.sleep(50);
 					}
 					return null;
 				}
@@ -245,11 +246,11 @@ public class GraphicWindow {
 	}
 	
 	private void updateDataLabels() {
-		Platform.runLater(() -> labelCaptor1.setText(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(0).getDistance())));
-		Platform.runLater(() -> labelCaptor2.setText(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(1).getDistance())));
-		Platform.runLater(() -> labelCaptor3.setText(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(2).getDistance())));
-		Platform.runLater(() -> labelCaptor4.setText(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(3).getDistance())));
-		Platform.runLater(() -> labelCaptor5.setText(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(4).getDistance())));
+		Platform.runLater(() -> labelCaptor1.setText(Double.toString(Round.RoundDouble(mainSimulationProgram.getRobot().getRobotCaptors().get(0).getDistance(),3))));
+		Platform.runLater(() -> labelCaptor2.setText(Double.toString(Round.RoundDouble(mainSimulationProgram.getRobot().getRobotCaptors().get(1).getDistance(),3))));
+		Platform.runLater(() -> labelCaptor3.setText(Double.toString(Round.RoundDouble(mainSimulationProgram.getRobot().getRobotCaptors().get(2).getDistance(),3))));
+		Platform.runLater(() -> labelCaptor4.setText(Double.toString(Round.RoundDouble(mainSimulationProgram.getRobot().getRobotCaptors().get(3).getDistance(),3))));
+		Platform.runLater(() -> labelCaptor5.setText(Double.toString(Round.RoundDouble(mainSimulationProgram.getRobot().getRobotCaptors().get(4).getDistance(),3))));
 	}
 	
 	private void updateGraphicItems() {
