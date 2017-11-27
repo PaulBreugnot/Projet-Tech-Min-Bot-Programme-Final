@@ -1,7 +1,13 @@
 package simulationProgram.graph;
 
 import simulationProgram.simMap.Obstacle;
+import simulationProgram.simRobot.SimCaptor;
 import simulationProgram.MainSimulationProgram;
+
+import java.util.ArrayList;
+
+import commonInterface.Captor;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,6 +21,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -25,6 +32,19 @@ public class GraphicWindow {
 	private Scene scene;
 
 	private Circle robot;
+	private Label labelCaptor1;
+	private Label labelCaptor2;
+	private Label labelCaptor3;
+	private Label labelCaptor4;
+	private Label labelCaptor5;
+	private Line captorLine1;
+	private Line captorLine2;
+	private Line captorLine3;
+	private Line captorLine4;
+	private Line captorLine5;
+	private Label labelV1;
+	private Label labelV2;
+	
 	
 	private GridPane dataGridPane;
 
@@ -65,12 +85,12 @@ public class GraphicWindow {
 			Task<Void> task = new Task<Void>() {
 				@Override
 				public Void call() throws Exception {
-					for (int i = 1; i <= Integer.MAX_VALUE; i++) {
-						//robot.setCenterX(robot.getCenterX() + 10);
+					//for (int i = 1; i <= Integer.MAX_VALUE; i++) {
+						//robot.setCenterX(robot.getCenterX() + 150);
 						updateDataLabels();
 						System.out.println("loop");
 						Thread.sleep(500);
-					}
+					//}
 					return null;
 				}
 			};
@@ -102,6 +122,7 @@ public class GraphicWindow {
 
 		setRobot(mapPane);
 		setObstacles(mapPane);
+		initRadarLines(mapPane);
 
 		mapRoot.getChildren().add(mapPane);
 
@@ -183,7 +204,7 @@ public class GraphicWindow {
 				mainSimulationProgram.getRobot().getRobotSize() * scale);
 		robot.setFill(Color.RED);
 
-		mapPane.getChildren().addAll(robot);
+		mapPane.getChildren().add(robot);
 	}
 
 	public void setObstacles(AnchorPane mapPane) {
@@ -196,18 +217,103 @@ public class GraphicWindow {
 	}
 	
 	private void setDataLabels() {
-		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(0).getDistance())), 1, 0);
-		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(1).getDistance())), 1, 1);
-		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(2).getDistance())), 1, 2);
-		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(3).getDistance())), 1, 3);
-		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(4).getDistance())), 1, 4);
+		labelCaptor1 = new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(0).getDistance()));
+		dataGridPane.add(labelCaptor1, 1, 0);
+		labelCaptor2 = new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(1).getDistance()));
+		dataGridPane.add(labelCaptor2, 1, 1);
+		labelCaptor3 = new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(2).getDistance()));
+		dataGridPane.add(labelCaptor3, 1, 2);
+		labelCaptor4 = new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(3).getDistance()));
+		dataGridPane.add(labelCaptor4, 1, 3);
+		labelCaptor5 = new Label(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(4).getDistance()));
+		dataGridPane.add(labelCaptor5, 1, 4);
 		
-		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getV1())), 3, 0);
-		dataGridPane.add(new Label(Double.toString(mainSimulationProgram.getRobot().getV2())), 3, 1);
+		labelV1 = new Label(Double.toString(mainSimulationProgram.getRobot().getV1()));
+		dataGridPane.add(labelV1, 3, 0);
+		labelV2 = new Label(Double.toString(mainSimulationProgram.getRobot().getV2()));
+		dataGridPane.add(labelV2, 3, 1);
 	}
 	
 	private void updateDataLabels() {
 		mainSimulationProgram.getRadar().updateCaptorDistances();
-		setDataLabels();
+		Platform.runLater(() -> labelCaptor1.setText(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(0).getDistance())));
+		Platform.runLater(() -> labelCaptor2.setText(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(1).getDistance())));
+		Platform.runLater(() -> labelCaptor3.setText(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(2).getDistance())));
+		Platform.runLater(() -> labelCaptor4.setText(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(3).getDistance())));
+		Platform.runLater(() -> labelCaptor5.setText(Double.toString(mainSimulationProgram.getRobot().getRobotCaptors().get(4).getDistance())));
+		Platform.runLater(() -> updateLinesCoordinates());
+	}
+	
+	private void initRadarLines(AnchorPane mapPane) {
+		setLinesCoordinates();
+		
+		mapPane.getChildren().add(captorLine1);
+		mapPane.getChildren().add(captorLine2);
+		mapPane.getChildren().add(captorLine3);
+		mapPane.getChildren().add(captorLine4);
+		mapPane.getChildren().add(captorLine5);
+		
+		}
+	
+	private void setLinesCoordinates() {
+		ArrayList<Captor> captors = mainSimulationProgram.getRobot().getRobotCaptors();
+		
+		ArrayList<Double> lineCoordinates = getLineCoordinates((SimCaptor) captors.get(0));
+		captorLine1 = new Line(lineCoordinates.get(0), lineCoordinates.get(1), lineCoordinates.get(2), lineCoordinates.get(3));
+		
+		lineCoordinates = getLineCoordinates((SimCaptor) captors.get(1));
+		captorLine2 = new Line(lineCoordinates.get(0), lineCoordinates.get(1), lineCoordinates.get(2), lineCoordinates.get(3));
+		
+		lineCoordinates = getLineCoordinates((SimCaptor) captors.get(2));
+		captorLine3 = new Line(lineCoordinates.get(0), lineCoordinates.get(1), lineCoordinates.get(2), lineCoordinates.get(3));
+		
+		lineCoordinates = getLineCoordinates((SimCaptor) captors.get(3));
+		captorLine4 = new Line(lineCoordinates.get(0), lineCoordinates.get(1), lineCoordinates.get(2), lineCoordinates.get(3));
+		
+		lineCoordinates = getLineCoordinates((SimCaptor) captors.get(4));
+		captorLine5 = new Line(lineCoordinates.get(0), lineCoordinates.get(1), lineCoordinates.get(2), lineCoordinates.get(3));
+	}
+	
+	private void updateLinesCoordinates() {
+		ArrayList<Captor> captors = mainSimulationProgram.getRobot().getRobotCaptors();
+		
+		ArrayList<Double> lineCoordinates = getLineCoordinates((SimCaptor) captors.get(0));
+		updateCoordinates(captorLine1, lineCoordinates);
+		
+		lineCoordinates = getLineCoordinates((SimCaptor) captors.get(1));
+		updateCoordinates(captorLine2, lineCoordinates);
+		
+		lineCoordinates = getLineCoordinates((SimCaptor) captors.get(2));
+		updateCoordinates(captorLine3, lineCoordinates);
+		
+		lineCoordinates = getLineCoordinates((SimCaptor) captors.get(3));
+		updateCoordinates(captorLine4, lineCoordinates);
+		
+		lineCoordinates = getLineCoordinates((SimCaptor) captors.get(4));
+		updateCoordinates(captorLine5, lineCoordinates);
+	}
+	
+	private void updateCoordinates(Line line, ArrayList<Double> coordinates) {
+		line.setStartX(coordinates.get(0));
+		line.setStartY(coordinates.get(1));
+		line.setEndX(coordinates.get(2));
+		line.setEndY(coordinates.get(3));
+	}
+	
+	private ArrayList<Double> getLineCoordinates(SimCaptor captor){
+		ArrayList<Double> coordinates = new ArrayList<>();
+		double xRobot = mainSimulationProgram.getRobot().getXPos()*scale;
+		double yRobot = mainSimulationProgram.getRobot().getYPos()*scale;
+		double captorOrientation = mainSimulationProgram.getRobot().getAlphaOrientation() + captor.getCaptorOrientation();
+		System.out.println(captorOrientation);
+		double xFinal = xRobot + captor.getDistance()* Math.cos(captorOrientation * Math.PI/180) * scale;
+		double yFinal = yRobot + captor.getDistance()* Math.sin(captorOrientation * Math.PI/180) * scale;
+		System.out.println("xFinal : " + xFinal);
+		System.out.println("yFinal : " + yFinal);
+		coordinates.add(xRobot);
+		coordinates.add(yRobot);
+		coordinates.add(xFinal);
+		coordinates.add(yFinal);
+		return coordinates;
 	}
 }

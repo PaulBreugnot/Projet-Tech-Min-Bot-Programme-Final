@@ -28,7 +28,7 @@ public class SimRobot extends AbstractRobot implements Robot{
 	@Override
 	public void setRobotCaptors() {
 		for (int cptrID = 0; cptrID<5; cptrID++) {
-			robotCaptors.add(new SimCaptor());
+			robotCaptors.add(new SimCaptor(-80+40*cptrID));
 		}
 		
 	}
