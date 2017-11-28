@@ -3,7 +3,7 @@ package commonInterface;
 //This interface needs to be implemented by the Simulation program and the real robot control program.
 public interface Motor {
 
-	int getSpeed(); //An integer between 0 and 255
-	void setSpeed(int speed);
+	double getSpeed(); //In rad/s
+	void setSpeed(double speed);
 	
 }

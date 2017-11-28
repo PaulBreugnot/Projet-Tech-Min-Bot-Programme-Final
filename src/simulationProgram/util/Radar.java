@@ -61,11 +61,9 @@ public class Radar {
 				absoluteCaptorOrientation = absoluteCaptorOrientation + 360;
 			}
 			
-			System.out.println("alphaOrientation = " + alphaOrientation);
-			System.out.println("absoluteCaptorOrientation = " + absoluteCaptorOrientation);
 			edgeDistance = getEdgeDistance(absoluteCaptorOrientation);
 			if (obstaclesList.size() < 1) {
-				robotCaptors.get(j).setDistance(edgeDistance);
+				robotCaptors.get(j).setDistance(edgeDistance - titi.getRobotSize());
 			} else {
 				ArrayList<Double> measuredDistance = new ArrayList<>();
 				for (Obstacle obstacle : obstaclesList) {
@@ -74,14 +72,12 @@ public class Radar {
 									* (obstacle.getRadius() + robotSize)) {
 						// le robot n'est pas dans l'obstacle
 						// détermination de la distance des capteurs à l'obstacle
-						System.out.println("lol");
 						return;
 					}
 
 					ArrayList<Double> solutions = new ArrayList<Double>();
 					solutions = getIntersectionPoints(absoluteCaptorOrientation, obstacle.getXPos(), obstacle.getYPos(),
 							obstacle.getRadius());
-					System.out.println("nb solutions = " + solutions.size());
 
 					if (solutions.size() == 0) {
 						// pas de solutions avec les obstacles, regarder le bord de terrain
@@ -109,7 +105,6 @@ public class Radar {
 						// 2 solutions
 						if (0 <= absoluteCaptorOrientation && absoluteCaptorOrientation <= 180) {
 							if (solutions.get(1) >= yRobot && solutions.get(3) >= yRobot) {
-								System.out.println("Edge distance = " + edgeDistance);
 								measuredDistance.add(Math.min(edgeDistance,
 										Math.min(
 												Math.sqrt(Math.pow(xRobot - solutions.get(0), 2)
@@ -167,10 +162,8 @@ public class Radar {
 						 */
 					}
 				}
-				System.out.println("Measured distances =" + measuredDistance);
-				robotCaptors.get(j).setDistance(MinArrayList.minArrayList(measuredDistance));
+				robotCaptors.get(j).setDistance(MinArrayList.minArrayList(measuredDistance) - titi.getRobotSize());
 			}
-			System.out.println("Captor " + j + ": " + robotCaptors.get(j).getDistance() + "\n");
 		}
 	}
 
@@ -272,8 +265,6 @@ public class Radar {
 		double C = cx * cx + cy * cy + b * b - 2 * b * cy - r * r;
 		double delta = B * B - 4 * A * C;
 
-		System.out.println("delta = " + delta);
-
 		if (delta > 0) {
 			double x = (-B - Math.sqrt(delta)) / (2 * A);
 			double y = a * x + b;
@@ -292,7 +283,6 @@ public class Radar {
 			lst.add(x);
 			lst.add(y);
 		}
-		System.out.println(lst);
 		}
 		else {
 			if(cx-r < xRobot && xRobot < cx+r) {

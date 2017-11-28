@@ -8,7 +8,7 @@ public class SimRobot extends AbstractRobot implements Robot {
 	private double xPos;
 	private double yPos;
 	private double alphaOrientation;
-	private double wheelRadius = 0.1;
+	private double wheelRadius = 0.069/2;
 	private double robotSize = 0.2; // Radius of the robot modeled by a circle
 
 	public SimRobot(double initXPos, double initYPos, double initAlphaOrientation) {

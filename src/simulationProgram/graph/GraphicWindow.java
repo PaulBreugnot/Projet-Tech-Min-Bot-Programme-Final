@@ -88,7 +88,7 @@ public class GraphicWindow {
 			Task<Void> task = new Task<Void>() {
 				@Override
 				public Void call() throws Exception {
-					for (Double[] coordinates : testSequence) {
+					/*for (Double[] coordinates : testSequence) {
 						mainSimulationProgram.getRobot().setXPos(coordinates[0]);
 						mainSimulationProgram.getRobot().setYPos(coordinates[1]);
 						mainSimulationProgram.getRobot().setAlphaOrientation(coordinates[2]);
@@ -96,6 +96,21 @@ public class GraphicWindow {
 						updateDataLabels();
 						updateGraphicItems();
 						Thread.sleep(50);
+					}*/
+					boolean obstacleEncountered = false;
+					mainSimulationProgram.getRobot().getRobotMotors().get(0).setSpeed(5.24);
+					mainSimulationProgram.getRobot().getRobotMotors().get(1).setSpeed(0);
+					while(!obstacleEncountered) {
+						Move.move(mainSimulationProgram.getRobot());
+						for (Captor captor : mainSimulationProgram.getRobot().getRobotCaptors()) {
+							if (captor.getDistance() < 0.01) {
+								obstacleEncountered = true;
+							}
+						}
+						mainSimulationProgram.getRadar().updateCaptorDistances();
+						updateDataLabels();
+						updateGraphicItems();
+						Thread.sleep(10);
 					}
 					return null;
 				}
@@ -117,7 +132,6 @@ public class GraphicWindow {
 
 		AnchorPane mapPane = new AnchorPane(); // Every elements will be place using this pane landmark
 		setMapPaneSize(mapPane, mapPaneMaxWidth, mapPaneMaxHeight);
-		System.out.println(scale);
 
 		Rectangle map = new Rectangle(mainSimulationProgram.getMap().getWidth() * scale, mainSimulationProgram.getMap().getHeight() * scale);
 		map.setFill(Color.YELLOW);
@@ -245,6 +259,9 @@ public class GraphicWindow {
 		Platform.runLater(() -> labelCaptor3.setText(Double.toString(Round.RoundDouble(mainSimulationProgram.getRobot().getRobotCaptors().get(2).getDistance(),3))));
 		Platform.runLater(() -> labelCaptor4.setText(Double.toString(Round.RoundDouble(mainSimulationProgram.getRobot().getRobotCaptors().get(3).getDistance(),3))));
 		Platform.runLater(() -> labelCaptor5.setText(Double.toString(Round.RoundDouble(mainSimulationProgram.getRobot().getRobotCaptors().get(4).getDistance(),3))));
+		
+		Platform.runLater(() -> labelV1.setText(Double.toString(Round.RoundDouble(mainSimulationProgram.getRobot().getRobotMotors().get(0).getSpeed(),3))));
+		Platform.runLater(() -> labelV2.setText(Double.toString(Round.RoundDouble(mainSimulationProgram.getRobot().getRobotMotors().get(1).getSpeed(),3))));
 	}
 	
 	private void updateGraphicItems() {
@@ -313,11 +330,8 @@ public class GraphicWindow {
 		double xRobot = mainSimulationProgram.getRobot().getXPos()*scale;
 		double yRobot = mainSimulationProgram.getRobot().getYPos()*scale;
 		double captorOrientation = mainSimulationProgram.getRobot().getAlphaOrientation() + captor.getCaptorOrientation();
-		System.out.println("Orientation = " + captorOrientation);
-		double xFinal = xRobot + captor.getDistance()* Math.cos(captorOrientation * Math.PI/180) * scale;
-		double yFinal = yRobot + captor.getDistance()* Math.sin(captorOrientation * Math.PI/180) * scale;
-		System.out.println("xFinal : " + xFinal/scale);
-		System.out.println("yFinal : " + yFinal/scale);
+		double xFinal = xRobot + (captor.getDistance() + mainSimulationProgram.getRobot().getRobotSize()) * Math.cos(captorOrientation * Math.PI/180) * scale;
+		double yFinal = yRobot + (captor.getDistance() + mainSimulationProgram.getRobot().getRobotSize()) * Math.sin(captorOrientation * Math.PI/180) * scale;
 		coordinates.add(xRobot);
 		coordinates.add(yRobot);
 		coordinates.add(xFinal);

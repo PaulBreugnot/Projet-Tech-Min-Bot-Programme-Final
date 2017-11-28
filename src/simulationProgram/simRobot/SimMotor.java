@@ -4,15 +4,15 @@ import commonInterface.Motor;
 
 public class SimMotor implements Motor {
 
-	private int speed; // An int between 0 and 255
+	private double speed; // In rad/s
 
 	@Override
-	public int getSpeed() {
+	public double getSpeed() {
 		return speed;
 	}
 
 	@Override
-	public void setSpeed(int speed) {
+	public void setSpeed(double speed) {
 		this.speed = speed;
 	}
 
