@@ -53,6 +53,14 @@ public class Radar {
 		for (int j = 0; j < 5; j++) {
 			double absoluteCaptorOrientation = alphaOrientation
 					+ ((SimCaptor) titi.getRobotCaptors().get(j)).getCaptorOrientation();
+			
+			if(absoluteCaptorOrientation > 360) {
+				absoluteCaptorOrientation = absoluteCaptorOrientation - 360;
+			}
+			if(absoluteCaptorOrientation < 0) {
+				absoluteCaptorOrientation = absoluteCaptorOrientation + 360;
+			}
+			
 			System.out.println("alphaOrientation = " + alphaOrientation);
 			System.out.println("absoluteCaptorOrientation = " + absoluteCaptorOrientation);
 			edgeDistance = getEdgeDistance(absoluteCaptorOrientation);
@@ -255,7 +263,7 @@ public class Radar {
 		double b;
 
 		// equation de la droite de vision du capteur
-		if (alpharadar!=270) {
+		if (alpharadar != 270 && alpharadar != 90) {
 		a = Math.tan(alpharadar * Math.PI / 180);
 		b = (yRobot - a * xRobot);
 

@@ -119,8 +119,6 @@ public class GraphicWindow {
 		setMapPaneSize(mapPane, mapPaneMaxWidth, mapPaneMaxHeight);
 		System.out.println(scale);
 
-		setObstacles();
-
 		Rectangle map = new Rectangle(mainSimulationProgram.getMap().getWidth() * scale, mainSimulationProgram.getMap().getHeight() * scale);
 		map.setFill(Color.YELLOW);
 		map.setOpacity(0.5);
@@ -199,10 +197,6 @@ public class GraphicWindow {
 		mapPane.setMinWidth(width);
 		mapPane.setMaxHeight(height);
 		mapPane.setMinHeight(height);
-	}
-
-	public void setObstacles() {
-
 	}
 
 	public void setRobot(AnchorPane mapPane) {
