@@ -14,35 +14,24 @@ public abstract class Move {
 	public static void move(SimRobot titi, int delta) {
 		System.out.println("V1 = " + titi.getV1());
 		System.out.println("V2 = " + titi.getV2());
-		// angles en rad ou rad/s
-		/*titi.setAlphaOrientation(titi.getAlphaOrientation()
-				+ (titi.getWheelRadius() / (2 * titi.getRobotSize())) * (titi.getV1() + titi.getV2()));
 
-		titi.setXPos(titi.getXPos() + (titi.getWheelRadius() / 2) * (titi.getV1() + titi.getV2())
-				* Math.cos(titi.getAlphaOrientation()) * delta / 1000);// angle de départ, possibilité de limiter les
-																		// erreurs en prenant une moyenne ou en
-																		// rajoutant des pas
-
-		titi.setYPos(titi.getYPos() + titi.getWheelRadius() / 2 * (titi.getV1() + titi.getV2())
-				* Math.sin(titi.getAlphaOrientation()) * delta / 1000);*/
-		
-		double DeltaAlpha = (titi.getWheelRadius() / (2 * (2 * titi.getRobotSize()))) * (titi.getV1() - titi.getV2());
+		double DeltaAlpha = titi.getWheelRadius() / (2 * titi.getRobotSize()) * (titi.getV1() - titi.getV2()) * delta
+				/ 1000;
 		double RobotSpeed = (titi.getWheelRadius() / 2) * (titi.getV1() + titi.getV2());
-		
-		System.out.println("Delta X = " + RobotSpeed*Math.cos(titi.getAlphaOrientation() + DeltaAlpha/2) * delta / 1000);
-		System.out.println("Delta Y = " + RobotSpeed*Math.sin(titi.getAlphaOrientation() + DeltaAlpha/2) * delta / 1000);
-		System.out.println("Delta Alpha = " + DeltaAlpha);
-		
 
-		
-		titi.setXPos(titi.getXPos() + RobotSpeed*Math.cos(titi.getAlphaOrientation() + DeltaAlpha/2) * delta / 1000);// angle de départ, possibilité de limiter les
-																		// erreurs en prenant une moyenne ou en
-																		// rajoutant des pas
+		System.out.println("Delta X = "
+				+ RobotSpeed * Math.cos(titi.getAlphaOrientation() * Math.PI / 180 + DeltaAlpha / 2) * delta / 1000);
+		System.out.println("Delta Y = "
+				+ RobotSpeed * Math.sin(titi.getAlphaOrientation() * Math.PI / 180 + DeltaAlpha / 2) * delta / 1000);
+		System.out.println("Delta Alpha = " + DeltaAlpha * 180 / Math.PI);
 
-		titi.setYPos(titi.getYPos() + RobotSpeed*Math.sin(titi.getAlphaOrientation() + DeltaAlpha/2) * delta / 1000);
-		
+		titi.setXPos(titi.getXPos()
+				+ RobotSpeed * Math.cos(titi.getAlphaOrientation() * Math.PI / 180 + DeltaAlpha / 2) * delta / 1000);
 
-		titi.setAlphaOrientation(titi.getAlphaOrientation() + DeltaAlpha);
+		titi.setYPos(titi.getYPos()
+				+ RobotSpeed * Math.sin(titi.getAlphaOrientation() * Math.PI / 180 + DeltaAlpha / 2) * delta / 1000);
+
+		titi.setAlphaOrientation(titi.getAlphaOrientation() + DeltaAlpha * 180 / Math.PI);
 
 	}
 

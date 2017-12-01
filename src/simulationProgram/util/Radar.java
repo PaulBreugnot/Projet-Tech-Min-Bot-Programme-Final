@@ -141,25 +141,7 @@ public class Radar {
 							} else if (solutions.get(1) > yRobot && solutions.get(3) > yRobot) {
 								measuredDistance.add(edgeDistance);
 							}
-
-							/*
-							 * else { if (solutions.get(1) < yRobot) { /* robotCaptors.get(j)
-							 * .setDistance(Math.min(edgeDistance, ((xRobot - solutions.get(0)) * (xRobot -
-							 * solutions.get(0)) + (yRobot - solutions.get(1)) (yRobot -
-							 * solutions.get(1)))));
-							 */
-							/*
-							 * measuredDistance .add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRobot -
-							 * solutions.get(0), 2) + Math.pow(yRobot - solutions.get(1), 2)))); } else { }
-							 * }
-							 */
-
 						}
-
-						/*
-						 * else { // le robot est dans l'obstacle // capteurs.set(0, (double) -1);
-						 * robotCaptors.get(j).setDistance(0); }
-						 */
 					}
 				}
 				robotCaptors.get(j).setDistance(MinArrayList.minArrayList(measuredDistance) - titi.getRobotSize());
