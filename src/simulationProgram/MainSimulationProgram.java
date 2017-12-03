@@ -58,7 +58,6 @@ public class MainSimulationProgram extends Application {
 				qLearningAgent.setLastAction(nextAction);
 				qLearningAgent.setLastReward(getLastReward());
 			}
-			getRadar().updateCaptorDistances();
 			graphicWindow.updateDataLabels();
 			graphicWindow.updateGraphicItems();
 			try {
@@ -67,7 +66,7 @@ public class MainSimulationProgram extends Application {
 				e.printStackTrace();
 			}
 		}
-
+		//simpleTest();
 	}
 	
 	private void executeDiscretisedAction(DiscretisedAction action) {
@@ -84,7 +83,6 @@ public class MainSimulationProgram extends Application {
 		}
 		Move.move(titi);
 		radar.updateCaptorDistances();
-		
 	}
 	
 	private DiscretisedState getCurrentState() {

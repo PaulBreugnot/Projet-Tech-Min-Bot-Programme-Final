@@ -53,6 +53,7 @@ public class QLearningAgent {
 		if (QLearningTable.get(stateActionPair) == null) {
 			QLearningTable.put(stateActionPair, 0.0);
 		}
+		
 		// Reinforcement
 		double newQValue = QLearningTable.get(stateActionPair) + alpha * (reward.getValue()
 				+ gamma * maxQValue(stateActionPair.getState()) - QLearningTable.get(stateActionPair));
