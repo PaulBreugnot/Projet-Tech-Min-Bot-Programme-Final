@@ -47,17 +47,18 @@ public class MainSimulationProgram extends Application {
 		QLearningAgent qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD), new Reward(0));
 		qLearningAgent.setAvailableActions(getAvailableAction(initState));
 		while (true) {
-			Action nextAction = qLearningAgent.getAction();
+			Action nextAction = new DiscretisedAction(DiscretisedAction.Actions.TURN_RIGHT);
+			/*Action nextAction = qLearningAgent.getAction();
 			if (nextAction == null) {
 				titi = new SimRobot(2.5, 2.5, 0);
 				qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD), new Reward(0));
 			}
-			else {
+			else {*/
 				executeDiscretisedAction((DiscretisedAction) nextAction);
 				qLearningAgent.setCurrentState(getCurrentState());
 				qLearningAgent.setLastAction(nextAction);
 				qLearningAgent.setLastReward(getLastReward());
-			}
+			//}
 			graphicWindow.updateDataLabels();
 			graphicWindow.updateGraphicItems();
 			try {
@@ -70,16 +71,21 @@ public class MainSimulationProgram extends Application {
 	}
 	
 	private void executeDiscretisedAction(DiscretisedAction action) {
+		System.out.println((DiscretisedAction.Actions) action.getValue());
 		switch ((DiscretisedAction.Actions) action.getValue()) {
 		case GO_FORWARD:
 			titi.getRobotMotors().get(0).setSpeed(5.24);
 			titi.getRobotMotors().get(1).setSpeed(5.24);
+			break;
 		case TURN_RIGHT:
 			titi.getRobotMotors().get(0).setSpeed(0);
 			titi.getRobotMotors().get(1).setSpeed(5.24);
+			break;
 		case TURN_LEFT:
 			titi.getRobotMotors().get(0).setSpeed(5.24);
+			System.out.println("Coucou!");
 			titi.getRobotMotors().get(1).setSpeed(0);
+			break;
 		}
 		Move.move(titi);
 		radar.updateCaptorDistances();
@@ -98,7 +104,7 @@ public class MainSimulationProgram extends Application {
 	private void simpleTest() {
 		boolean obstacleEncountered = false;
 		titi.getRobotMotors().get(0).setSpeed(5.24);
-		titi.getRobotMotors().get(1).setSpeed(0);
+		titi.getRobotMotors().get(1).setSpeed(5.24);
 		while(!obstacleEncountered) {
 			Move.move(getRobot());
 			for (Captor captor : getRobot().getRobotCaptors()) {
