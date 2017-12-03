@@ -10,23 +10,6 @@ public class ContinuousAction implements Action{
 	public ContinuousAction(Actions action) {
 		this.action = action;
 	}
-
-	@Override
-	public Object getRandomAction() {
-		int n = (int) Math.ceil(Math.random() * 4);
-		switch (n) {
-		case 0:
-			return new ContinuousAction(Actions.SPEED_UP_RIGHT);
-		case 1:
-			return new ContinuousAction(Actions.SPEED_UP_LEFT);
-		case 2:
-			return new ContinuousAction(Actions.SLOW_DOWN_RIGHT);
-		case 3:
-			return new ContinuousAction(Actions.SLOW_DOWN_LEFT);
-		default:
-			return null;
-		}
-	}
 	
 	@Override
 	public Object getValue() {

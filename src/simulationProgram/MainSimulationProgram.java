@@ -14,12 +14,11 @@ import qLearning.QLearningAgent;
 import qLearning.model.Action;
 import qLearning.model.DiscretisedAction;
 import qLearning.model.DiscretisedState;
-import qLearning.model.Reward;
 import simulationProgram.graph.GraphicWindow;
 
 public class MainSimulationProgram extends Application {
 
-	SimRobot titi = new SimRobot(2.5, 2.5, 0);
+	SimRobot titi = new SimRobot(2.5, 2.5, 180);
 	ArrayList<Obstacle> obstaclesList = new ArrayList<>();
 	Map map = new Map(5, 5);
 	Radar radar;
@@ -44,23 +43,24 @@ public class MainSimulationProgram extends Application {
 		DiscretisedState initState = getCurrentState();
 		
 		initRobotSpeed();
-		QLearningAgent qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD), new Reward(0));
+		QLearningAgent qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD));
 		qLearningAgent.setAvailableActions(getAvailableActions(initState));
 		while (true) {
 			//Action nextAction = new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD);
-			Action nextAction = (Action) (new DiscretisedAction()).getRandomAction();
-			//Action nextAction = qLearningAgent.getAction();
+			//Action nextAction = (Action) (new DiscretisedAction()).getRandomAction();
+			Action nextAction = qLearningAgent.getAction();
 			if (nextAction == null) {
-				titi = new SimRobot(2.5, 2.5, 0);
-				qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD), new Reward(0));
+				System.out.println("Fail! Restart simulation.");
+				titi = new SimRobot(2.5, 2.5, 180);
+				qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD));
 			}
 			else {
 				executeDiscretisedAction((DiscretisedAction) nextAction);
+				qLearningAgent.setLastReward(nextAction);
 				qLearningAgent.setCurrentState(getCurrentState());
 				qLearningAgent.setAvailableActions(getAvailableActions(getCurrentState()));
 				qLearningAgent.setLastAction(nextAction);
-				qLearningAgent.setLastReward(getLastReward());
-				//System.out.println("Available Actions : " + qLearningAgent.getAvailableActions());
+				System.out.println("Available Actions : " + qLearningAgent.getAvailableActions());
 			}
 			System.out.println("D1 = " + titi.getRobotCaptors().get(0).getDistance());
 			System.out.println("D2 = " + titi.getRobotCaptors().get(1).getDistance());
@@ -70,7 +70,7 @@ public class MainSimulationProgram extends Application {
 			graphicWindow.updateDataLabels();
 			graphicWindow.updateGraphicItems();
 			try {
-				Thread.sleep(500);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -102,10 +102,6 @@ public class MainSimulationProgram extends Application {
 		return new DiscretisedState(titi.getRobotCaptors().get(0).getDistance(),
 				titi.getRobotCaptors().get(1).getDistance(), titi.getRobotCaptors().get(2).getDistance(),
 				titi.getRobotCaptors().get(3).getDistance(), titi.getRobotCaptors().get(4).getDistance());
-	}
-	
-	private Reward getLastReward() {
-		return new Reward(0);
 	}
 	
 	private void simpleTest() {

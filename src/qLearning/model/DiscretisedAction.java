@@ -15,21 +15,7 @@ public class DiscretisedAction implements Action{
 	public Object getValue() {
 		return action;
 	}
-
-	@Override
-	public Object getRandomAction() {
-		int n = (int) Math.floor(Math.random() * 3);
-		switch (n) {
-		case 0:
-			return new DiscretisedAction(Actions.GO_FORWARD);
-		case 1:
-			return new DiscretisedAction(Actions.TURN_LEFT);
-		case 2:
-			return new DiscretisedAction(Actions.TURN_RIGHT);
-		default:
-			return null;
-		}
-	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
