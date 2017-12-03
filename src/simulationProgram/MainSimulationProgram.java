@@ -45,24 +45,32 @@ public class MainSimulationProgram extends Application {
 		
 		initRobotSpeed();
 		QLearningAgent qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD), new Reward(0));
-		qLearningAgent.setAvailableActions(getAvailableAction(initState));
+		qLearningAgent.setAvailableActions(getAvailableActions(initState));
 		while (true) {
-			Action nextAction = new DiscretisedAction(DiscretisedAction.Actions.TURN_RIGHT);
-			/*Action nextAction = qLearningAgent.getAction();
+			//Action nextAction = new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD);
+			Action nextAction = (Action) (new DiscretisedAction()).getRandomAction();
+			//Action nextAction = qLearningAgent.getAction();
 			if (nextAction == null) {
 				titi = new SimRobot(2.5, 2.5, 0);
 				qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD), new Reward(0));
 			}
-			else {*/
+			else {
 				executeDiscretisedAction((DiscretisedAction) nextAction);
 				qLearningAgent.setCurrentState(getCurrentState());
+				qLearningAgent.setAvailableActions(getAvailableActions(getCurrentState()));
 				qLearningAgent.setLastAction(nextAction);
 				qLearningAgent.setLastReward(getLastReward());
-			//}
+				//System.out.println("Available Actions : " + qLearningAgent.getAvailableActions());
+			}
+			System.out.println("D1 = " + titi.getRobotCaptors().get(0).getDistance());
+			System.out.println("D2 = " + titi.getRobotCaptors().get(1).getDistance());
+			System.out.println("D3 = " + titi.getRobotCaptors().get(2).getDistance());
+			System.out.println("D4 = " + titi.getRobotCaptors().get(3).getDistance());
+			System.out.println("D5 = " + titi.getRobotCaptors().get(4).getDistance());
 			graphicWindow.updateDataLabels();
 			graphicWindow.updateGraphicItems();
 			try {
-				Thread.sleep(10);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -71,7 +79,7 @@ public class MainSimulationProgram extends Application {
 	}
 	
 	private void executeDiscretisedAction(DiscretisedAction action) {
-		System.out.println((DiscretisedAction.Actions) action.getValue());
+		System.out.println("Action : " + action.getValue());
 		switch ((DiscretisedAction.Actions) action.getValue()) {
 		case GO_FORWARD:
 			titi.getRobotMotors().get(0).setSpeed(5.24);
@@ -83,7 +91,6 @@ public class MainSimulationProgram extends Application {
 			break;
 		case TURN_LEFT:
 			titi.getRobotMotors().get(0).setSpeed(5.24);
-			System.out.println("Coucou!");
 			titi.getRobotMotors().get(1).setSpeed(0);
 			break;
 		}
@@ -123,9 +130,10 @@ public class MainSimulationProgram extends Application {
 		}
 	}
 	
-	private ArrayList<Action> getAvailableAction(DiscretisedState discretisedState) {
+	private ArrayList<Action> getAvailableActions(DiscretisedState discretisedState) {
 		ArrayList<Action> availableActions = new ArrayList<>();
 		boolean allCaptorInfinite = true;
+		System.out.println("discretisedState : " + discretisedState.getRadarStates());
 		for(DiscretisedState.RadarStates radarState : discretisedState.getRadarStates()) {
 			if (radarState == DiscretisedState.RadarStates.S0) {
 				return null;

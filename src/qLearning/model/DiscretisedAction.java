@@ -5,6 +5,8 @@ public class DiscretisedAction implements Action{
 	
 	public enum Actions{GO_FORWARD, TURN_RIGHT, TURN_LEFT}
 	
+	public DiscretisedAction() {}
+	
 	public DiscretisedAction(Actions action) {
 		this.action = action;
 	}
@@ -16,14 +18,14 @@ public class DiscretisedAction implements Action{
 
 	@Override
 	public Object getRandomAction() {
-		int n = (int) Math.ceil(Math.random() * 4);
+		int n = (int) Math.floor(Math.random() * 3);
 		switch (n) {
 		case 0:
 			return new DiscretisedAction(Actions.GO_FORWARD);
 		case 1:
-			return new DiscretisedAction(Actions.TURN_RIGHT);
-		case 2:
 			return new DiscretisedAction(Actions.TURN_LEFT);
+		case 2:
+			return new DiscretisedAction(Actions.TURN_RIGHT);
 		default:
 			return null;
 		}
@@ -49,6 +51,13 @@ public class DiscretisedAction implements Action{
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "[action=" + action + "]";
+	}
+	
+	
 	
 	
 }

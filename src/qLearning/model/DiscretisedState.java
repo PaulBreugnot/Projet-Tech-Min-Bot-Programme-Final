@@ -29,43 +29,43 @@ public class DiscretisedState extends State {
 	}
 	
 	public RadarStates discretized(double d) {
-		if (0 <= d && d < 5) {
+		if (0.0 <= d && d < 0.05) {
 			return RadarStates.S0;
 		}
 		
-		if (5 <= d && d < 10) {
+		if (0.5 <= d && d < 0.10) {
 			return RadarStates.S1;
 		}
 		
-		if (10 <= d && d < 15) {
+		if (0.10 <= d && d < 0.15) {
 			return RadarStates.S2;
 		}
 		
-		if (15 <= d && d < 20) {
+		if (0.15 <= d && d < 0.20) {
 			return RadarStates.S3;
 		}
 		
-		if (20 <= d && d < 25) {
+		if (0.20 <= d && d < 0.25) {
 			return RadarStates.S4;
 		}
 		
-		if (25 <= d && d < 30) {
+		if (0.25 <= d && d < 0.30) {
 			return RadarStates.S5;
 		}
 		
-		if (30 <= d && d < 35) {
+		if (0.30 <= d && d < 0.35) {
 			return RadarStates.S6;
 		}
 		
-		if (35 <= d && d < 40) {
+		if (0.35 <= d && d < 0.40) {
 			return RadarStates.S7;
 		}
 		
-		if (40 <= d && d < 45) {
+		if (0.40 <= d && d < 0.45) {
 			return RadarStates.S8;
 		}
 		
-		if (45 <= d && d < 50) {
+		if (0.45 <= d && d < 0.50) {
 			return RadarStates.S9;
 		}
 		

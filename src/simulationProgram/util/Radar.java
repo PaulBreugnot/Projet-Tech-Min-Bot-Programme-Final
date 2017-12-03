@@ -54,7 +54,7 @@ public class Radar {
 			double absoluteCaptorOrientation = alphaOrientation
 					+ ((SimCaptor) titi.getRobotCaptors().get(j)).getCaptorOrientation();
 			
-			if(absoluteCaptorOrientation > 360) {
+			if(absoluteCaptorOrientation >= 360) {
 				absoluteCaptorOrientation = absoluteCaptorOrientation - 360;
 			}
 			if(absoluteCaptorOrientation < 0) {
@@ -86,8 +86,8 @@ public class Radar {
 
 					} else if (solutions.size() == 2) {
 						// 1seule solution : vérifier juste la demi-droite
-						if (0 < absoluteCaptorOrientation && absoluteCaptorOrientation < 180) {
-							if (solutions.get(1) > yRobot) {
+						if (0 <= absoluteCaptorOrientation && absoluteCaptorOrientation < 180) {
+							if (solutions.get(1) >= yRobot) {
 								measuredDistance
 										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRobot - solutions.get(0), 2)
 												+ Math.pow(yRobot - solutions.get(1), 2))));
@@ -95,7 +95,7 @@ public class Radar {
 						}
 
 						else {
-							if (solutions.get(1) < yRobot) {
+							if (solutions.get(1) <= yRobot) {
 								measuredDistance
 										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRobot - solutions.get(0), 2)
 												+ Math.pow(yRobot - solutions.get(1), 2))));
@@ -103,7 +103,7 @@ public class Radar {
 						}
 					} else {
 						// 2 solutions
-						if (0 <= absoluteCaptorOrientation && absoluteCaptorOrientation <= 180) {
+						if (0 <= absoluteCaptorOrientation && absoluteCaptorOrientation < 180) {
 							if (solutions.get(1) >= yRobot && solutions.get(3) >= yRobot) {
 								measuredDistance.add(Math.min(edgeDistance,
 										Math.min(
@@ -111,23 +111,23 @@ public class Radar {
 														+ Math.pow(yRobot - solutions.get(1), 2)),
 												Math.sqrt(Math.pow(xRobot - solutions.get(2), 2)
 														+ Math.pow(yRobot - solutions.get(3), 2)))));
-							} else if (solutions.get(1) > yRobot && solutions.get(3) < yRobot) {
+							} else if (solutions.get(1) >= yRobot && solutions.get(3) <= yRobot) {
 								measuredDistance
 										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRobot - solutions.get(0), 2)
 												+ Math.pow(yRobot - solutions.get(1), 2))));
-							} else if (solutions.get(1) < yRobot && solutions.get(3) > yRobot) {
+							} else if (solutions.get(1) <= yRobot && solutions.get(3) >= yRobot) {
 								measuredDistance
 										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRobot - solutions.get(2), 2)
 												+ Math.pow(yRobot - solutions.get(3), 2))));
-							} else if (solutions.get(1) < yRobot && solutions.get(3) < yRobot) {
+							} else if (solutions.get(1) <= yRobot && solutions.get(3) <= yRobot) {
 								measuredDistance.add(edgeDistance);
 							}
 						} else {
-							if (solutions.get(1) > yRobot && solutions.get(3) < yRobot) {
+							if (solutions.get(1) >= yRobot && solutions.get(3) <= yRobot) {
 								measuredDistance
 										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRobot - solutions.get(2), 2)
 												+ Math.pow(yRobot - solutions.get(3), 2))));
-							} else if (solutions.get(1) < yRobot && solutions.get(3) > yRobot) {
+							} else if (solutions.get(1) <= yRobot && solutions.get(3) >= yRobot) {
 								measuredDistance
 										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRobot - solutions.get(0), 2)
 												+ Math.pow(yRobot - solutions.get(1), 2))));
@@ -138,7 +138,7 @@ public class Radar {
 														+ Math.pow(yRobot - solutions.get(1), 2)),
 												Math.sqrt(Math.pow(xRobot - solutions.get(2), 2)
 														+ Math.pow(yRobot - solutions.get(3), 2)))));
-							} else if (solutions.get(1) > yRobot && solutions.get(3) > yRobot) {
+							} else if (solutions.get(1) >= yRobot && solutions.get(3) >= yRobot) {
 								measuredDistance.add(edgeDistance);
 							}
 						}
@@ -154,7 +154,7 @@ public class Radar {
 		if (alpharadar < 0) {
 			alpharadar = alpharadar + 360;
 		}
-		if (alpharadar > 360) {
+		if (alpharadar >= 360) {
 			alpharadar = alpharadar - 360;
 		}
 
@@ -220,6 +220,8 @@ public class Radar {
 		} else if (270 <= alpharadar && alpharadar < 360 && d3 == -1) {
 			return d2;
 		}
+		System.out.println("Alpharadar = " + alpharadar);
+		System.out.println("coucou!");
 		return 0.2;
 
 	}

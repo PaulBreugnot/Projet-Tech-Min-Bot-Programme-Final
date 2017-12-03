@@ -47,6 +47,10 @@ public class QLearningAgent {
 		
 		return nextAction;
 	}
+	
+	public ArrayList<Action> getAvailableActions(){
+		return availableActions;
+	}
 
 	private void LearnFrom(StateActionPair stateActionPair, Reward reward) {
 
