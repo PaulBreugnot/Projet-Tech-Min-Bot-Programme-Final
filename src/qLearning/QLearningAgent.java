@@ -6,7 +6,6 @@ import java.util.Hashtable;
 import qLearning.model.Action;
 import qLearning.model.Reward;
 import qLearning.model.State;
-import qLearning.model.ContinuousState;
 import qLearning.model.StateActionPair;
 
 public class QLearningAgent {
@@ -14,7 +13,7 @@ public class QLearningAgent {
 	final static double gamma = 0.5;
 	static double epsilon = 0.99;
 
-	private ContinuousState currentState;
+	private State currentState;
 	private Action lastAction;
 	private Reward lastReward;
 
@@ -23,7 +22,7 @@ public class QLearningAgent {
 	static ArrayList<Action> availableActions = new ArrayList<>();
 	static Hashtable<StateActionPair, Double> QLearningTable = new Hashtable<>();
 
-	public QLearningAgent(ContinuousState currentState, Action lastAction, Reward lastReward) {
+	public QLearningAgent(State currentState, Action lastAction, Reward lastReward) {
 		this.currentState = currentState;
 		this.lastAction = lastAction;
 		this.lastReward = lastReward;

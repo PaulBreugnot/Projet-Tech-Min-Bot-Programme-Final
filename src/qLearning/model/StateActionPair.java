@@ -5,7 +5,7 @@ public class StateActionPair {
 	private State state;
 	private Action action;
 
-	public StateActionPair(ContinuousState state, Action action) {
+	public StateActionPair(State state, Action action) {
 		this.state = state;
 		this.action = action;
 	}
