@@ -8,6 +8,11 @@ public class DiscretisedAction implements Action{
 	public DiscretisedAction(Actions action) {
 		this.action = action;
 	}
+	
+	@Override
+	public Object getValue() {
+		return action;
+	}
 
 	@Override
 	public Object getRandomAction() {

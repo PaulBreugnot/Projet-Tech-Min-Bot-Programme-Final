@@ -28,7 +28,8 @@ public class ContinuousAction implements Action{
 		}
 	}
 	
-	public Actions getAction() {
+	@Override
+	public Object getValue() {
 		return action;
 	}
 

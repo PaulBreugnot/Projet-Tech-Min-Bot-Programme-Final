@@ -41,9 +41,7 @@ public class MainSimulationProgram extends Application {
 	}
 	
 	public void runSimulation() {
-		DiscretisedState initState = new DiscretisedState(titi.getRobotCaptors().get(0).getDistance(),
-				titi.getRobotCaptors().get(1).getDistance(), titi.getRobotCaptors().get(2).getDistance(),
-				titi.getRobotCaptors().get(3).getDistance(), titi.getRobotCaptors().get(4).getDistance());
+		DiscretisedState initState = getCurrentState();
 		
 		initRobotSpeed();
 		QLearningAgent qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD), new Reward(0));
@@ -55,7 +53,10 @@ public class MainSimulationProgram extends Application {
 				qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD), new Reward(0));
 			}
 			else {
-				
+				executeDiscretisedAction((DiscretisedAction) nextAction);
+				qLearningAgent.setCurrentState(getCurrentState());
+				qLearningAgent.setLastAction(nextAction);
+				qLearningAgent.setLastReward(getLastReward());
 			}
 			getRadar().updateCaptorDistances();
 			graphicWindow.updateDataLabels();
@@ -63,17 +64,43 @@ public class MainSimulationProgram extends Application {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 
 	}
 	
+	private void executeDiscretisedAction(DiscretisedAction action) {
+		switch ((DiscretisedAction.Actions) action.getValue()) {
+		case GO_FORWARD:
+			titi.getRobotMotors().get(0).setSpeed(5.24);
+			titi.getRobotMotors().get(1).setSpeed(5.24);
+		case TURN_RIGHT:
+			titi.getRobotMotors().get(0).setSpeed(0);
+			titi.getRobotMotors().get(1).setSpeed(5.24);
+		case TURN_LEFT:
+			titi.getRobotMotors().get(0).setSpeed(5.24);
+			titi.getRobotMotors().get(1).setSpeed(0);
+		}
+		Move.move(titi);
+		radar.updateCaptorDistances();
+		
+	}
+	
+	private DiscretisedState getCurrentState() {
+		return new DiscretisedState(titi.getRobotCaptors().get(0).getDistance(),
+				titi.getRobotCaptors().get(1).getDistance(), titi.getRobotCaptors().get(2).getDistance(),
+				titi.getRobotCaptors().get(3).getDistance(), titi.getRobotCaptors().get(4).getDistance());
+	}
+	
+	private Reward getLastReward() {
+		return new Reward(0);
+	}
+	
 	private void simpleTest() {
 		boolean obstacleEncountered = false;
-		getRobot().getRobotMotors().get(0).setSpeed(5.24);
-		getRobot().getRobotMotors().get(1).setSpeed(0);
+		titi.getRobotMotors().get(0).setSpeed(5.24);
+		titi.getRobotMotors().get(1).setSpeed(0);
 		while(!obstacleEncountered) {
 			Move.move(getRobot());
 			for (Captor captor : getRobot().getRobotCaptors()) {

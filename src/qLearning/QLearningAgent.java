@@ -28,6 +28,18 @@ public class QLearningAgent {
 		this.lastReward = lastReward;
 	}
 
+	public void setCurrentState(State state) {
+		currentState = state; 
+	}
+	
+	public void setLastAction(Action action) {
+		lastAction = action;
+	}
+	
+	public void setLastReward(Reward reward) {
+		lastReward = reward;
+	}
+	
 	public Action getAction() {
 		StateActionPair stateActionPair = new StateActionPair(currentState, lastAction);
 
