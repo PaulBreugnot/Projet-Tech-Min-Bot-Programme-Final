@@ -88,16 +88,7 @@ public class GraphicWindow {
 			Task<Void> task = new Task<Void>() {
 				@Override
 				public Void call() throws Exception {
-					/*for (Double[] coordinates : testSequence) {
-						mainSimulationProgram.getRobot().setXPos(coordinates[0]);
-						mainSimulationProgram.getRobot().setYPos(coordinates[1]);
-						mainSimulationProgram.getRobot().setAlphaOrientation(coordinates[2]);
-						mainSimulationProgram.getRadar().updateCaptorDistances();
-						updateDataLabels();
-						updateGraphicItems();
-						Thread.sleep(50);
-					}*/
-					boolean obstacleEncountered = false;
+					/*boolean obstacleEncountered = false;
 					mainSimulationProgram.getRobot().getRobotMotors().get(0).setSpeed(5.24);
 					mainSimulationProgram.getRobot().getRobotMotors().get(1).setSpeed(0);
 					while(!obstacleEncountered) {
@@ -111,7 +102,8 @@ public class GraphicWindow {
 						updateDataLabels();
 						updateGraphicItems();
 						Thread.sleep(10);
-					}
+					}*/
+					mainSimulationProgram.runSimulation();
 					return null;
 				}
 			};
@@ -253,7 +245,7 @@ public class GraphicWindow {
 		dataGridPane.add(labelV2, 3, 1);
 	}
 	
-	private void updateDataLabels() {
+	public void updateDataLabels() {
 		Platform.runLater(() -> labelCaptor1.setText(Double.toString(Round.RoundDouble(mainSimulationProgram.getRobot().getRobotCaptors().get(0).getDistance(),3))));
 		Platform.runLater(() -> labelCaptor2.setText(Double.toString(Round.RoundDouble(mainSimulationProgram.getRobot().getRobotCaptors().get(1).getDistance(),3))));
 		Platform.runLater(() -> labelCaptor3.setText(Double.toString(Round.RoundDouble(mainSimulationProgram.getRobot().getRobotCaptors().get(2).getDistance(),3))));
@@ -264,7 +256,7 @@ public class GraphicWindow {
 		Platform.runLater(() -> labelV2.setText(Double.toString(Round.RoundDouble(mainSimulationProgram.getRobot().getRobotMotors().get(1).getSpeed(),3))));
 	}
 	
-	private void updateGraphicItems() {
+	public void updateGraphicItems() {
 		Platform.runLater(() -> updateLinesCoordinates());
 		Platform.runLater(() -> updateRobotCoordinates());
 	}

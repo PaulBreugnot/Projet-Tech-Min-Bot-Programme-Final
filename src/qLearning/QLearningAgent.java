@@ -32,7 +32,7 @@ public class QLearningAgent {
 		StateActionPair stateActionPair = new StateActionPair(currentState, lastAction);
 
 		LearnFrom(stateActionPair, lastReward);
-
+		
 		return nextAction;
 	}
 
@@ -49,7 +49,7 @@ public class QLearningAgent {
 		double p = Math.random();
 		if(p >= epsilon) {
 			//Exploration
-			nextAction = Action.getRandomAction();
+			nextAction = (Action) stateActionPair.getAction().getRandomAction();
 		}
 	}
 

@@ -1,8 +1,10 @@
 package qLearning.model;
 
+import java.util.ArrayList;
+
 public class DiscretisedState extends State {
 
-	private enum RadarStates {S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10}
+	public enum RadarStates {S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10}
 	public RadarStates radar1;
 	public RadarStates radar2;
 	public RadarStates radar3;
@@ -71,7 +73,16 @@ public class DiscretisedState extends State {
 			return RadarStates.S10;
 		}
 	}
-
+	
+	public ArrayList<RadarStates> getRadarStates(){
+		ArrayList<RadarStates> states = new ArrayList<>();
+		states.add(radar1);
+		states.add(radar2);
+		states.add(radar3);
+		states.add(radar4);
+		states.add(radar5);
+		return states;
+	}
 
 	@Override
 	public int hashCode() {
