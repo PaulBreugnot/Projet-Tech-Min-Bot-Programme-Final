@@ -74,21 +74,38 @@ public class QLearningAgent {
 	}
 
 	private double maxQValue(State state) {
-		double maxQValue = Double.MIN_VALUE;
-		for (StateActionPair stateActionPair : QLearningTable.keySet()) {
-			if (availableActions.contains(stateActionPair.getAction())) {
+		double maxQValue = -Double.MAX_VALUE;
+		if (availableActions.size() > 0) {
+			for (Action action : availableActions) {
+				StateActionPair s = new StateActionPair(state, action);
+				if (QLearningTable.get(s) == null) {
+					QLearningTable.put(s, 0.0);
+				}
+			}
+
+			for (StateActionPair stateActionPair : QLearningTable.keySet()) {
 				if (stateActionPair.getState().equals(state)) {
-					if (QLearningTable.get(stateActionPair) > maxQValue) {
-						maxQValue = QLearningTable.get(stateActionPair);
-						// Exploitation
-						nextAction = stateActionPair.getAction();
+					System.out.println("equals state OK");
+					if (availableActions.contains(stateActionPair.getAction())) {
+						System.out.println("Possible action OK");
+						System.out.println("maxQValue : " + maxQValue);
+						System.out.println("Current QValue : " + QLearningTable.get(stateActionPair));
+						if (QLearningTable.get(stateActionPair) > maxQValue) {
+							maxQValue = QLearningTable.get(stateActionPair);
+							System.out.println("Max OK");
+							// Exploitation
+							nextAction = stateActionPair.getAction();
+							System.out.println("next action OK : " + nextAction);
+						}
 					}
 				}
 			}
 		}
-		if (maxQValue == Double.MIN_VALUE) {
+		if (maxQValue == -Double.MAX_VALUE) {
 			nextAction = null;
 		}
+
+		System.out.println("salut!");
 		return maxQValue;
 	}
 

@@ -53,6 +53,7 @@ public class MainSimulationProgram extends Application {
 				System.out.println("Fail! Restart simulation.");
 				titi = new SimRobot(2.5, 2.5, 180);
 				qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD));
+				radar.updateCaptorDistances();
 			}
 			else {
 				executeDiscretisedAction((DiscretisedAction) nextAction);
@@ -132,7 +133,7 @@ public class MainSimulationProgram extends Application {
 		System.out.println("discretisedState : " + discretisedState.getRadarStates());
 		for(DiscretisedState.RadarStates radarState : discretisedState.getRadarStates()) {
 			if (radarState == DiscretisedState.RadarStates.S0) {
-				return null;
+				return new ArrayList<Action>();
 			}
 			if (radarState != DiscretisedState.RadarStates.S10) {
 				allCaptorInfinite = false;
