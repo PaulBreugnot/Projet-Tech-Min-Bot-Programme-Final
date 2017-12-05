@@ -9,8 +9,8 @@ import qLearning.model.State;
 import qLearning.model.StateActionPair;
 
 public class QLearningAgent {
-	final static double alpha = 0.3;
-	final static double gamma = 0.8;
+	final static double alpha = 0.1;
+	final static double gamma = 0.9;
 	static double epsilon = 0.99;
 
 	private State currentState;
@@ -62,18 +62,18 @@ public class QLearningAgent {
 		// Reinforcement
 		double newQValue = QLearningTable.get(stateActionPair) + alpha * (reward.getValue()
 				+ gamma * maxQValue(stateActionPair.getState()) - QLearningTable.get(stateActionPair));
-		/*double newQValue = reward.getValue()
-						+ gamma * maxQValue(stateActionPair.getState());*/
+		/*
+		 * double newQValue = reward.getValue() + gamma *
+		 * maxQValue(stateActionPair.getState());
+		 */
 		QLearningTable.put(stateActionPair, newQValue);
-		System.out.println(newQValue);
 
 		double p = Math.random();
-		System.out.println(p + " , " + epsilon);
 		if (p < epsilon) {
 			// Exploration
-			System.out.println("Random Action!");
 			nextAction = (Action) Action.getRandomAction(availableActions);
-			System.out.println("Salut!");
+		}
+		if (epsilon > 0.05) {
 			epsilon = epsilon * 0.9999;
 		}
 	}
@@ -87,17 +87,14 @@ public class QLearningAgent {
 					QLearningTable.put(s, 0.0);
 				}
 			}
-
+			System.out.println("Explored states number : " + QLearningTable.keySet().size());
 			for (StateActionPair stateActionPair : QLearningTable.keySet()) {
 				if (stateActionPair.getState().equals(state)) {
 					if (availableActions.contains(stateActionPair.getAction())) {
-						System.out.println("Current QValue : " + QLearningTable.get(stateActionPair));
 						if (QLearningTable.get(stateActionPair) > maxQValue) {
 							maxQValue = QLearningTable.get(stateActionPair);
-							System.out.println("maxQValue : " + maxQValue);
 							// Exploitation
 							nextAction = stateActionPair.getAction();
-							System.out.println("next action OK : " + nextAction);
 						}
 					}
 				}
@@ -107,6 +104,10 @@ public class QLearningAgent {
 			nextAction = null;
 		}
 		return maxQValue;
+	}
+
+	public static void refreshEpsilon(double delta) {
+		epsilon = epsilon + delta * epsilon;
 	}
 
 	public void setAvailableActions(ArrayList<Action> availableActions) {

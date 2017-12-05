@@ -48,10 +48,12 @@ public class MainSimulationProgram extends Application {
 			Action nextAction = qLearningAgent.getAction();
 			if (nextAction == null) {
 				System.out.println("Fail! Restart simulation.");
-				titi = new SimRobot(2.5, 2.5, 180);
+				//titi = new SimRobot(2.5, 2.5, 180);
+				titi = new SimRobot(2.5, 2.5, 360*Math.random());
 				radar = new Radar(obstaclesList, titi, map);
 				initState = getCurrentState();
 				qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD));
+				//QLearningAgent.refreshEpsilon(0.1);
 				qLearningAgent.setAvailableActions(getAvailableActions(getCurrentState()));
 				radar.updateCaptorDistances();
 			}
@@ -60,7 +62,6 @@ public class MainSimulationProgram extends Application {
 				qLearningAgent.setCurrentState(getCurrentState());
 				qLearningAgent.setAvailableActions(getAvailableActions(getCurrentState()));
 				qLearningAgent.setLastAction(nextAction);
-				System.out.println("Available Actions : " + qLearningAgent.getAvailableActions());
 			}
 			graphicWindow.updateDataLabels();
 			graphicWindow.updateGraphicItems();
@@ -74,7 +75,6 @@ public class MainSimulationProgram extends Application {
 	}
 	
 	private void executeDiscretisedAction(DiscretisedAction action) {
-		System.out.println("Action : " + action.getValue());
 		switch ((DiscretisedAction.Actions) action.getValue()) {
 		case GO_FORWARD:
 			titi.getRobotMotors().get(0).setSpeed(5.24);
@@ -124,7 +124,6 @@ public class MainSimulationProgram extends Application {
 	private ArrayList<Action> getAvailableActions(DiscretisedState discretisedState) {
 		ArrayList<Action> availableActions = new ArrayList<>();
 		boolean allCaptorInfinite = true;
-		System.out.println("discretisedState : " + discretisedState.getRadarStates());
 		for(DiscretisedState.RadarStates radarState : discretisedState.getRadarStates()) {
 			if (radarState == DiscretisedState.RadarStates.S0) {
 				return new ArrayList<Action>();

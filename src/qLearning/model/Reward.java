@@ -16,9 +16,6 @@ public class Reward {
 			setNewReward(stateActionPair);
 		}
 		value = HashReward.get(stateActionPair);
-		System.out.println("State : " + ((DiscretisedState) stateActionPair.getState()).getRadarStates());
-		System.out.println("Action : " + stateActionPair.getAction());
-		System.out.println("Reward : " + value);
 	}
 
 	private void setNewReward(StateActionPair stateActionPair) {
@@ -32,48 +29,48 @@ public class Reward {
 			}
 		}
 		if (obstacle) {
-			HashReward.put(stateActionPair, -20);
+			HashReward.put(stateActionPair, -500);
 		} else {
 			int reward = 0;
 			for (DiscretisedState.RadarStates state : radarStates) {
 				switch (state) {
 				case S1:
-					reward += 1;
+					reward += 5;
 					break;
 				case S2:
-					reward += 2;
+					reward += 10;
 					break;
 
 				case S3:
-					reward += 3;
+					reward += 15;
 					break;
 
 				case S4:
-					reward += 4;
+					reward += 20;
 					break;
 
 				case S5:
-					reward += 5;
+					reward += 30;
 					break;
 
 				case S6:
-					reward += 6;
+					reward += 40;
 					break;
 
 				case S7:
-					reward += 7;
+					reward += 55;
 					break;
 
 				case S8:
-					reward += 8;
+					reward += 60;
 					break;
 
 				case S9:
-					reward += 9;
+					reward += 80;
 					break;
 
 				case S10:
-					reward += 50;
+					reward += 100;
 					break;
 
 				default:
