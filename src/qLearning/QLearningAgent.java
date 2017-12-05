@@ -9,9 +9,9 @@ import qLearning.model.State;
 import qLearning.model.StateActionPair;
 
 public class QLearningAgent {
-	final static double alpha = 0.1;
-	final static double gamma = 0.1;
-	static double epsilon = 0.05;
+	final static double alpha = 0.3;
+	final static double gamma = 0.8;
+	static double epsilon = 0.99;
 
 	private State currentState;
 	private Action lastAction;
@@ -68,13 +68,14 @@ public class QLearningAgent {
 		System.out.println(newQValue);
 
 		double p = Math.random();
+		System.out.println(p + " , " + epsilon);
 		if (p < epsilon) {
 			// Exploration
 			System.out.println("Random Action!");
 			nextAction = (Action) Action.getRandomAction(availableActions);
 			System.out.println("Salut!");
+			epsilon = epsilon * 0.9999;
 		}
-		epsilon = epsilon * 1;
 	}
 
 	private double maxQValue(State state) {
