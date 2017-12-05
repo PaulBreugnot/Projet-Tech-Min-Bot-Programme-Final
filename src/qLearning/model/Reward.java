@@ -16,17 +16,24 @@ public class Reward {
 			ArrayList<DiscretisedState.RadarStates> radarStates = ((DiscretisedState) stateActionPair.getState())
 					.getRadarStates();
 			Action A = stateActionPair.getAction();
+			boolean obstacle = false;
 			for (DiscretisedState.RadarStates state : radarStates) {
 				if (state == DiscretisedState.RadarStates.S0) {
-					HashReward.put(stateActionPair, -1);
-				} else if (A.getValue() == DiscretisedAction.Actions.GO_FORWARD) {
-					HashReward.put(stateActionPair, 1);
-				} else {
-					HashReward.put(stateActionPair, 0);
+					obstacle = true;
 				}
+			}
+			if (obstacle) {
+				HashReward.put(stateActionPair, -1);
+			} else if (A.getValue() == DiscretisedAction.Actions.GO_FORWARD) {
+				HashReward.put(stateActionPair, 1);
+			} else {
+				HashReward.put(stateActionPair, 0);
 			}
 		}
 		value = HashReward.get(stateActionPair);
+		System.out.println("State : " + ((DiscretisedState) stateActionPair.getState()).getRadarStates());
+		System.out.println("Action : " + stateActionPair.getAction());
+		System.out.println("Reward : " + value);
 	}
 
 	public int getValue() {

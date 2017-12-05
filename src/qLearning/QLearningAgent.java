@@ -43,6 +43,7 @@ public class QLearningAgent {
 	public Action getAction() {
 		StateActionPair stateActionPair = new StateActionPair(currentState, lastAction);
 
+		setLastReward(lastAction);
 		LearnFrom(stateActionPair, lastReward);
 
 		return nextAction;
@@ -85,14 +86,11 @@ public class QLearningAgent {
 
 			for (StateActionPair stateActionPair : QLearningTable.keySet()) {
 				if (stateActionPair.getState().equals(state)) {
-					System.out.println("equals state OK");
 					if (availableActions.contains(stateActionPair.getAction())) {
-						System.out.println("Possible action OK");
 						System.out.println("maxQValue : " + maxQValue);
 						System.out.println("Current QValue : " + QLearningTable.get(stateActionPair));
 						if (QLearningTable.get(stateActionPair) > maxQValue) {
 							maxQValue = QLearningTable.get(stateActionPair);
-							System.out.println("Max OK");
 							// Exploitation
 							nextAction = stateActionPair.getAction();
 							System.out.println("next action OK : " + nextAction);
@@ -104,8 +102,6 @@ public class QLearningAgent {
 		if (maxQValue == -Double.MAX_VALUE) {
 			nextAction = null;
 		}
-
-		System.out.println("salut!");
 		return maxQValue;
 	}
 
