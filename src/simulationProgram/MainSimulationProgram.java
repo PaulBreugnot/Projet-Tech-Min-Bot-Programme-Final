@@ -40,19 +40,19 @@ public class MainSimulationProgram extends Application {
 	}
 	
 	public void runSimulation() {
-		DiscretisedState initState = getCurrentState();
 		
-		initRobotSpeed();
+		DiscretisedState initState = getCurrentState();
 		QLearningAgent qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD));
 		qLearningAgent.setAvailableActions(getAvailableActions(initState));
 		while (true) {
-			//Action nextAction = new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD);
-			//Action nextAction = (Action) (new DiscretisedAction()).getRandomAction();
 			Action nextAction = qLearningAgent.getAction();
 			if (nextAction == null) {
 				System.out.println("Fail! Restart simulation.");
 				titi = new SimRobot(2.5, 2.5, 180);
+				radar = new Radar(obstaclesList, titi, map);
+				initState = getCurrentState();
 				qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD));
+				qLearningAgent.setAvailableActions(getAvailableActions(getCurrentState()));
 				radar.updateCaptorDistances();
 			}
 			else {
@@ -63,11 +63,6 @@ public class MainSimulationProgram extends Application {
 				qLearningAgent.setLastAction(nextAction);
 				System.out.println("Available Actions : " + qLearningAgent.getAvailableActions());
 			}
-			System.out.println("D1 = " + titi.getRobotCaptors().get(0).getDistance());
-			System.out.println("D2 = " + titi.getRobotCaptors().get(1).getDistance());
-			System.out.println("D3 = " + titi.getRobotCaptors().get(2).getDistance());
-			System.out.println("D4 = " + titi.getRobotCaptors().get(3).getDistance());
-			System.out.println("D5 = " + titi.getRobotCaptors().get(4).getDistance());
 			graphicWindow.updateDataLabels();
 			graphicWindow.updateGraphicItems();
 			try {
@@ -148,10 +143,6 @@ public class MainSimulationProgram extends Application {
 			availableActions.add(new DiscretisedAction(DiscretisedAction.Actions.TURN_LEFT));
 		}
 		return availableActions;
-	}
-	
-	private void initRobotSpeed() {
-		
 	}
 
 	public Map getMap() {
