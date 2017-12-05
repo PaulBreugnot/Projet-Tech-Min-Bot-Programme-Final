@@ -29,9 +29,9 @@ public class Reward {
 			}
 		}
 		if (obstacle) {
-			HashReward.put(stateActionPair, -500);
+			HashReward.put(stateActionPair, -1);
 		} else {
-			int reward = 0;
+			/*int reward = 0;
 			for (DiscretisedState.RadarStates state : radarStates) {
 				switch (state) {
 				case S1:
@@ -76,8 +76,9 @@ public class Reward {
 				default:
 					break;
 				}
-			}
-			HashReward.put(stateActionPair, reward);
+			}*/
+			//HashReward.put(stateActionPair, reward);
+			HashReward.put(stateActionPair, 1);
 		}
 	}
 

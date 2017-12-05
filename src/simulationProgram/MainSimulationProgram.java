@@ -49,7 +49,7 @@ public class MainSimulationProgram extends Application {
 			if (nextAction == null) {
 				System.out.println("Fail! Restart simulation.");
 				//titi = new SimRobot(2.5, 2.5, 180);
-				titi = new SimRobot(2.5, 2.5, 360*Math.random());
+				titi = new SimRobot(2.5, 2.5, 180);
 				radar = new Radar(obstaclesList, titi, map);
 				initState = getCurrentState();
 				qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD));
