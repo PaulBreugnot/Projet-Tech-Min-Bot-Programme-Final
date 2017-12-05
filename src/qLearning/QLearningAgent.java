@@ -9,9 +9,9 @@ import qLearning.model.State;
 import qLearning.model.StateActionPair;
 
 public class QLearningAgent {
-	final static double alpha = 0.5;
-	final static double gamma = 0.5;
-	static double epsilon = 0.99;
+	final static double alpha = 0.1;
+	final static double gamma = 0.1;
+	static double epsilon = 0.05;
 
 	private State currentState;
 	private Action lastAction;
@@ -62,6 +62,8 @@ public class QLearningAgent {
 		// Reinforcement
 		double newQValue = QLearningTable.get(stateActionPair) + alpha * (reward.getValue()
 				+ gamma * maxQValue(stateActionPair.getState()) - QLearningTable.get(stateActionPair));
+		/*double newQValue = reward.getValue()
+						+ gamma * maxQValue(stateActionPair.getState());*/
 		QLearningTable.put(stateActionPair, newQValue);
 		System.out.println(newQValue);
 
@@ -70,8 +72,9 @@ public class QLearningAgent {
 			// Exploration
 			System.out.println("Random Action!");
 			nextAction = (Action) Action.getRandomAction(availableActions);
+			System.out.println("Salut!");
 		}
-		epsilon = epsilon * 0.99;
+		epsilon = epsilon * 1;
 	}
 
 	private double maxQValue(State state) {
@@ -87,10 +90,10 @@ public class QLearningAgent {
 			for (StateActionPair stateActionPair : QLearningTable.keySet()) {
 				if (stateActionPair.getState().equals(state)) {
 					if (availableActions.contains(stateActionPair.getAction())) {
-						System.out.println("maxQValue : " + maxQValue);
 						System.out.println("Current QValue : " + QLearningTable.get(stateActionPair));
 						if (QLearningTable.get(stateActionPair) > maxQValue) {
 							maxQValue = QLearningTable.get(stateActionPair);
+							System.out.println("maxQValue : " + maxQValue);
 							// Exploitation
 							nextAction = stateActionPair.getAction();
 							System.out.println("next action OK : " + nextAction);

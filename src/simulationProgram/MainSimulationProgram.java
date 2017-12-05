@@ -47,14 +47,13 @@ public class MainSimulationProgram extends Application {
 		while (true) {
 			Action nextAction = qLearningAgent.getAction();
 			if (nextAction == null) {
-			/*	System.out.println("Fail! Restart simulation.");
+				System.out.println("Fail! Restart simulation.");
 				titi = new SimRobot(2.5, 2.5, 180);
 				radar = new Radar(obstaclesList, titi, map);
 				initState = getCurrentState();
 				qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD));
 				qLearningAgent.setAvailableActions(getAvailableActions(getCurrentState()));
-				radar.updateCaptorDistances();*/
-				return;
+				radar.updateCaptorDistances();
 			}
 			else {
 				executeDiscretisedAction((DiscretisedAction) nextAction);
@@ -66,7 +65,7 @@ public class MainSimulationProgram extends Application {
 			graphicWindow.updateDataLabels();
 			graphicWindow.updateGraphicItems();
 			try {
-				Thread.sleep(10);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
