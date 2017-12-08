@@ -9,8 +9,8 @@ import qLearning.model.State;
 import qLearning.model.StateActionPair;
 
 public class QLearningAgent {
-	final static double alpha = 0.4;
-	final static double gamma = 0.8;
+	final static double alpha = 0.8;
+	final static double gamma = 0.4;
 	static double epsilon = 0.99;
 
 	private State currentState;
@@ -87,7 +87,7 @@ public class QLearningAgent {
 					QLearningTable.put(s, 0.0);
 				}
 			}
-			System.out.println("Explored states number : " + QLearningTable.keySet().size());
+			//System.out.println("Explored states number : " + QLearningTable.keySet().size());
 			for (StateActionPair stateActionPair : QLearningTable.keySet()) {
 				if (stateActionPair.getState().equals(state)) {
 					if (availableActions.contains(stateActionPair.getAction())) {

@@ -12,6 +12,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import qLearning.QLearningAgent;
 import qLearning.model.Action;
+import qLearning.model.Reward;
 import qLearning.model.DiscretisedAction;
 import qLearning.model.DiscretisedState;
 import simulationProgram.graph.GraphicWindow;
@@ -31,11 +32,16 @@ public class MainSimulationProgram extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		System.out.println("Start method inside Thread : " + Thread.currentThread().getName());
-		obstaclesList.add(new Obstacle(4, 1.5, 0.5));
+		/*obstaclesList.add(new Obstacle(4, 1.5, 0.5));
 		obstaclesList.add(new Obstacle(4, 4, 0.7));
-		obstaclesList.add(new Obstacle(0.5, 3, 0.4));
+		obstaclesList.add(new Obstacle(0.5, 3, 0.4));*/
+		obstaclesList.add(new Obstacle(0.1, 0.1, 0.1));
+		obstaclesList.add(new Obstacle(4.9, 0.1, 0.1));
+		obstaclesList.add(new Obstacle(0.1, 4.9, 0.1));
+		obstaclesList.add(new Obstacle(4.9, 4.9, 0.1));
 		radar = new Radar(obstaclesList, titi, map);
 		radar.updateCaptorDistances();
+		Reward.setRobot(titi);
 		graphicWindow = new GraphicWindow(stage, this);
 	}
 	
@@ -50,6 +56,7 @@ public class MainSimulationProgram extends Application {
 				System.out.println("Fail! Restart simulation.");
 				//titi = new SimRobot(2.5, 2.5, 180);
 				titi = new SimRobot(2.5, 2.5, 180);
+				Reward.setRobot(titi);
 				radar = new Radar(obstaclesList, titi, map);
 				initState = getCurrentState();
 				qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD));
@@ -81,12 +88,12 @@ public class MainSimulationProgram extends Application {
 			titi.getRobotMotors().get(1).setSpeed(5.24);
 			break;
 		case TURN_RIGHT:
-			titi.getRobotMotors().get(0).setSpeed(0);
+			titi.getRobotMotors().get(0).setSpeed(-2);
 			titi.getRobotMotors().get(1).setSpeed(5.24);
 			break;
 		case TURN_LEFT:
 			titi.getRobotMotors().get(0).setSpeed(5.24);
-			titi.getRobotMotors().get(1).setSpeed(0);
+			titi.getRobotMotors().get(1).setSpeed(-2);
 			break;
 		}
 		Move.move(titi);

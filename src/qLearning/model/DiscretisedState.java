@@ -4,123 +4,129 @@ import java.util.ArrayList;
 
 public class DiscretisedState extends State {
 
-	public enum RadarStates {S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10}
+	public enum RadarStates {
+		S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10
+	}
+
+	public static final double S0value = 0.10;
+	public static final double S1value = 0.20;
+	public static final double S2value = 0.30;
+	public static final double S3value = 0.40;
+	public static final double S4value = 0.50;
+	public static final double S5value = 0.60;
+	public static final double S6value = 0.70;
+	public static final double S7value = 0.80;
+	public static final double S8value = 0.90;
+	public static final double S9value = 1.0;
 	public RadarStates radar1;
 	public RadarStates radar2;
 	public RadarStates radar3;
 	public RadarStates radar4;
 	public RadarStates radar5;
 
-	
-	public DiscretisedState (RadarStates radar1, RadarStates radar2, RadarStates radar3, RadarStates radar4, RadarStates radar5) {
+	public DiscretisedState(RadarStates radar1, RadarStates radar2, RadarStates radar3, RadarStates radar4,
+			RadarStates radar5) {
 		this.radar1 = radar1;
 		this.radar2 = radar2;
 		this.radar3 = radar3;
 		this.radar4 = radar4;
 		this.radar5 = radar5;
 	}
-	
-	public DiscretisedState (double d1, double d2, double d3, double d4, double d5) {
-		radar1 = discretized(d1);
-		radar2 = discretized(d2);
-		radar3 = discretized(d3);
-		radar4 = discretized(d4);
-		radar5 = discretized(d5);
+
+	public DiscretisedState(double d1, double d2, double d3, double d4, double d5) {
+		radar1 = discretized1(d1);
+		radar2 = discretized1(d2);
+		radar3 = discretized1(d3);
+		radar4 = discretized1(d4);
+		radar5 = discretized1(d5);
 	}
-	
-	/*public RadarStates discretized(double d) {
-		if (0.0 <= d && d < 0.05) {
+
+	public static RadarStates discretized1(double d) {
+		if (0.0 <= d && d < S0value) {
 			return RadarStates.S0;
 		}
-		
-		if (0.5 <= d && d < 0.10) {
+
+		if (S0value <= d && d < S1value) {
 			return RadarStates.S1;
 		}
-		
-		if (0.10 <= d && d < 0.15) {
+
+		if (S1value <= d && d < S2value) {
 			return RadarStates.S2;
 		}
-		
-		if (0.15 <= d && d < 0.20) {
+
+		if (S2value <= d && d < S3value) {
 			return RadarStates.S3;
 		}
-		
-		if (0.20 <= d && d < 0.25) {
+
+		if (S3value <= d && d < S4value) {
 			return RadarStates.S4;
 		}
-		
-		if (0.25 <= d && d < 0.30) {
+
+		if (S4value <= d && d < S5value) {
 			return RadarStates.S5;
 		}
-		
-		if (0.30 <= d && d < 0.35) {
+
+		if (S5value <= d && d < S6value) {
 			return RadarStates.S6;
 		}
-		
-		if (0.35 <= d && d < 0.40) {
+
+		if (S6value <= d && d < S7value) {
 			return RadarStates.S7;
 		}
-		
-		if (0.40 <= d && d < 0.45) {
+
+		if (S7value <= d && d < S8value) {
 			return RadarStates.S8;
 		}
-		
-		if (0.45 <= d && d < 0.50) {
+
+		if (S8value <= d && d < S9value) {
 			return RadarStates.S9;
 		}
-		
-		else {
-			return RadarStates.S10;
-		}
-	}*/
-	
-	public RadarStates discretized(double d) {
-		if (0.0 <= d && d < 0.05) {
-			return RadarStates.S0;
-		}
-		
-		if (0.05 <= d && d < 0.10) {
-			return RadarStates.S1;
-		}
-		
-		if (0.10 <= d && d < 0.15) {
-			return RadarStates.S2;
-		}
-		
-		if (0.15 <= d && d < 0.20) {
-			return RadarStates.S3;
-		}
-		
-		if (0.20 <= d && d < 0.30) {
-			return RadarStates.S4;
-		}
-		
-		if (0.30 <= d && d < 0.40) {
-			return RadarStates.S5;
-		}
-		
-		if (0.40 <= d && d < 0.55) {
-			return RadarStates.S6;
-		}
-		
-		if (0.55 <= d && d < 0.60) {
-			return RadarStates.S7;
-		}
-		
-		if (0.60 <= d && d < 0.80) {
-			return RadarStates.S8;
-		}
-		
-		if (0.80 <= d && d < 1.0) {
-			return RadarStates.S9;
-		}
-		
+
 		else {
 			return RadarStates.S10;
 		}
 	}
-	
-	public ArrayList<RadarStates> getRadarStates(){
+
+	public static RadarStates discretized2(double d) {
+		if (0.0 <= d && d < 0.2) {
+			return RadarStates.S0;
+		}
+
+		if (0.2 <= d && d < 0.5) {
+			return RadarStates.S1;
+		} else {
+			return RadarStates.S2;
+		}
+	}
+
+	public static double value(RadarStates radarStates) {
+		switch (radarStates) {
+		case S0:
+			return S0value;
+		case S1:
+			return S1value;
+		case S2:
+			return S2value;
+		case S3:
+			return S3value;
+		case S4:
+			return S4value;
+		case S5:
+			return S5value;
+		case S6:
+			return S6value;
+		case S7:
+			return S7value;
+		case S8:
+			return S8value;
+		case S9:
+			return S9value;
+		default:
+			return Double.POSITIVE_INFINITY;
+		}
+	}
+
+	public ArrayList<RadarStates> getRadarStates() {
 		ArrayList<RadarStates> states = new ArrayList<>();
 		states.add(radar1);
 		states.add(radar2);
@@ -141,7 +147,6 @@ public class DiscretisedState extends State {
 		result = prime * result + ((radar5 == null) ? 0 : radar5.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -164,6 +169,5 @@ public class DiscretisedState extends State {
 			return false;
 		return true;
 	}
-	
-	
+
 }

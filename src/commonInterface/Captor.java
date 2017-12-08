@@ -6,4 +6,6 @@ public interface Captor {
 	double getDistance(); // Return captor distance measurement, in meter
 
 	void setDistance(double distance);
+	
+	double getCaptorOrientation();
 }
