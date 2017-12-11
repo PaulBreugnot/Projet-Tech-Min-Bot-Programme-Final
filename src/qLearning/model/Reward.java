@@ -477,8 +477,8 @@ public class Reward {
 				captorRewards.add(-100);
 				break;
 			case S2:
-				if (i == 0) {
-					captorRewards.add(10000);
+				if (i == 0 | i == 4) {
+					captorRewards.add(200);
 				}
 				else {
 				captorRewards.add(-50);
@@ -486,64 +486,64 @@ public class Reward {
 				break;
 
 			case S3:
-				if (i == 0) {
-					captorRewards.add(-200);
+				if (i == 0 | i == 4) {
+					captorRewards.add(-100);
 				} else {
 					captorRewards.add(0);
 				}
 				break;
 
 			case S4:
-				if (i == 0) {
-					captorRewards.add(-200);
+				if (i == 0 | i == 4) {
+					captorRewards.add(-100);
 				} else {
 					captorRewards.add(20);
 				}
 				break;
 
 			case S5:
-				if (i == 0) {
-					captorRewards.add(-200);
+				if (i == 0 | i == 4) {
+					captorRewards.add(-100);
 				} else {
 					captorRewards.add(40);
 				}
 				break;
 
 			case S6:
-				if (i == 0) {
-					captorRewards.add(-200);
+				if (i == 0 | i == 4) {
+					captorRewards.add(-100);
 				} else {
 					captorRewards.add(60);
 				}
 				break;
 
 			case S7:
-				if (i == 0) {
-					captorRewards.add(-200);
+				if (i == 0 | i == 4) {
+					captorRewards.add(-100);
 				} else {
 					captorRewards.add(80);
 				}
 				break;
 
 			case S8:
-				if (i == 0) {
-					captorRewards.add(-200);
+				if (i == 0 | i == 4) {
+					captorRewards.add(-100);
 				} else {
 					captorRewards.add(100);
 				}
 				break;
 
 			case S9:
-				if (i == 0) {
-					captorRewards.add(-200);
+				if (i == 0 | i == 4) {
+					captorRewards.add(-100);
 				} else {
 					captorRewards.add(120);
 				}
 				break;
 
 			case S10:
-				if (i == 0) {
-					captorRewards.add(-200);
+				if (i == 0 | i == 4) {
+					captorRewards.add(-100);
 				} else {
 					captorRewards.add(200);
 				}
@@ -553,10 +553,6 @@ public class Reward {
 				break;
 			}
 		}
-		/*
-		 * int finalReward = Integer.MAX_VALUE; for (int r : captorRewards) { if (r <
-		 * finalReward) { finalReward = r; } }
-		 */
 
 		int finalReward = 0;
 		for (int r : captorRewards) {

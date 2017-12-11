@@ -19,7 +19,7 @@ import simulationProgram.graph.GraphicWindow;
 
 public class MainSimulationProgram extends Application {
 
-	SimRobot titi = new SimRobot(2.5, 2.5, 180);
+	SimRobot titi = new SimRobot(2.5, 2.5, 200);
 	ArrayList<Obstacle> obstaclesList = new ArrayList<>();
 	Map map = new Map(5, 5);
 	Radar radar;
@@ -55,7 +55,7 @@ public class MainSimulationProgram extends Application {
 			if (nextAction == null) {
 				System.out.println("Fail! Restart simulation.");
 				//titi = new SimRobot(2.5, 2.5, 180);
-				titi = new SimRobot(2.5, 2.5, 180);
+				titi = new SimRobot(2.5, 2.5, 200);
 				Reward.setRobot(titi);
 				radar = new Radar(obstaclesList, titi, map);
 				initState = getCurrentState();
@@ -88,12 +88,12 @@ public class MainSimulationProgram extends Application {
 			titi.getRobotMotors().get(1).setSpeed(5.24);
 			break;
 		case TURN_RIGHT:
-			titi.getRobotMotors().get(0).setSpeed(-2);
+			titi.getRobotMotors().get(0).setSpeed(-0.5);
 			titi.getRobotMotors().get(1).setSpeed(5.24);
 			break;
 		case TURN_LEFT:
 			titi.getRobotMotors().get(0).setSpeed(5.24);
-			titi.getRobotMotors().get(1).setSpeed(-2);
+			titi.getRobotMotors().get(1).setSpeed(-0.5);
 			break;
 		}
 		Move.move(titi);
