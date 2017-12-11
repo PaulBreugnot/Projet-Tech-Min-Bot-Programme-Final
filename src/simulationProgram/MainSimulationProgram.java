@@ -18,10 +18,16 @@ import qLearning.model.DiscretisedState;
 import simulationProgram.graph.GraphicWindow;
 
 public class MainSimulationProgram extends Application {
+	
+	static final double mapWidth = 5;
+	static final double mapHeight = 5;
+	static final double initRobotX = 2.5;
+	static final double initRobotY = 4;
+	static final double initAngle = 180; 
 
-	SimRobot titi = new SimRobot(2.5, 2.5, 200);
+	SimRobot titi = new SimRobot(initRobotX, initRobotY, initAngle);
 	ArrayList<Obstacle> obstaclesList = new ArrayList<>();
-	Map map = new Map(5, 5);
+	Map map = new Map(mapWidth, mapHeight);
 	Radar radar;
 	GraphicWindow graphicWindow;
 
@@ -32,9 +38,9 @@ public class MainSimulationProgram extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		System.out.println("Start method inside Thread : " + Thread.currentThread().getName());
-		/*obstaclesList.add(new Obstacle(4, 1.5, 0.5));
-		obstaclesList.add(new Obstacle(4, 4, 0.7));
-		obstaclesList.add(new Obstacle(0.5, 3, 0.4));*/
+		obstaclesList.add(new Obstacle(3, 1.5, 0.5));
+		obstaclesList.add(new Obstacle(4, 4, 0.3));
+		obstaclesList.add(new Obstacle(0.5, 3, 0.4));
 		obstaclesList.add(new Obstacle(0.1, 0.1, 0.1));
 		obstaclesList.add(new Obstacle(4.9, 0.1, 0.1));
 		obstaclesList.add(new Obstacle(0.1, 4.9, 0.1));
@@ -55,7 +61,7 @@ public class MainSimulationProgram extends Application {
 			if (nextAction == null) {
 				System.out.println("Fail! Restart simulation.");
 				//titi = new SimRobot(2.5, 2.5, 180);
-				titi = new SimRobot(2.5, 2.5, 200);
+				titi = new SimRobot(initRobotX, initRobotY, initAngle);
 				Reward.setRobot(titi);
 				radar = new Radar(obstaclesList, titi, map);
 				initState = getCurrentState();
@@ -88,12 +94,12 @@ public class MainSimulationProgram extends Application {
 			titi.getRobotMotors().get(1).setSpeed(5.24);
 			break;
 		case TURN_RIGHT:
-			titi.getRobotMotors().get(0).setSpeed(-0.5);
+			titi.getRobotMotors().get(0).setSpeed(-1.0);
 			titi.getRobotMotors().get(1).setSpeed(5.24);
 			break;
 		case TURN_LEFT:
 			titi.getRobotMotors().get(0).setSpeed(5.24);
-			titi.getRobotMotors().get(1).setSpeed(-0.5);
+			titi.getRobotMotors().get(1).setSpeed(-1.0);
 			break;
 		}
 		Move.move(titi);
