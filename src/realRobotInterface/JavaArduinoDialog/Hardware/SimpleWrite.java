@@ -21,7 +21,7 @@ public class SimpleWrite{
     private String response;
 
     public static void main(String[] args) {
-    	//Need to close the port openned for read before reopening it to write
+    	//Need to close the port opened for read before reopening it to write
     	readingThread.closePort();
     	
         portList = CommPortIdentifier.getPortIdentifiers();
@@ -94,17 +94,17 @@ public class SimpleWrite{
 		//wait for Arduino response
 		int beginTime = LocalDateTime.now().getSecond();
 		System.out.println("-----Waiting for Arduino Response-----");
-		while(readingThread.getReceivedData() == "noData") {
+		while(readingThread.getReceivedData() == "noData" && LocalDateTime.now().getSecond() - beginTime < 2) {
 			//System.out.println(LocalDateTime.now().getSecond());
-			if(LocalDateTime.now().getSecond() - beginTime >= 2) {
+			/*if(LocalDateTime.now().getSecond() - beginTime >= 2) {
 			System.out.println("Retry...");
 			sendQuerry(querry);
-			}
+			}*/
 		}
 		setResponse(readingThread.getReceivedData());
 		readingThread.setReceivedData("noData");
-		System.out.println("-----Response Received By The Arduino!----");
-		//System.out.println(response);
+		System.out.println("-----Response Received!----");
+		System.out.println("response : " + response);
     }
     
     public static void setReadingThread(SimpleRead readingThread) {

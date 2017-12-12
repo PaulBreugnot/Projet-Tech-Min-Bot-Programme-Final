@@ -97,12 +97,12 @@ public class MainSimulationProgram extends Application {
 			titi.getRobotMotors().get(1).setSpeed(5.24);
 			break;
 		case TURN_RIGHT:
-			titi.getRobotMotors().get(0).setSpeed(-1.0);
+			titi.getRobotMotors().get(0).setSpeed(0);
 			titi.getRobotMotors().get(1).setSpeed(5.24);
 			break;
 		case TURN_LEFT:
 			titi.getRobotMotors().get(0).setSpeed(5.24);
-			titi.getRobotMotors().get(1).setSpeed(-1.0);
+			titi.getRobotMotors().get(1).setSpeed(0);
 			break;
 		}
 		Move.move(titi);
@@ -150,6 +150,8 @@ public class MainSimulationProgram extends Application {
 		}
 		if (allCaptorInfinite) {
 			availableActions.add(new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD));
+			availableActions.add(new DiscretisedAction(DiscretisedAction.Actions.TURN_RIGHT));
+			availableActions.add(new DiscretisedAction(DiscretisedAction.Actions.TURN_LEFT));
 		}
 		else {
 			availableActions.add(new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD));

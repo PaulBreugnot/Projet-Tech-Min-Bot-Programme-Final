@@ -3,9 +3,10 @@ import java.time.LocalDateTime;
 
 public class Main {
 
+	private static final SimpleRead readingThread = new SimpleRead();
 	public static void main(String[] args) {
+		while(true) {
 		//Initiate a unique reading thread that will be executed as a background process
-		SimpleRead readingThread = new SimpleRead();
 		
 		//SimpleWrite is instantiating at each sendQuerry/sendData
 		
@@ -24,13 +25,15 @@ public class Main {
 		
 		//Asking for captors data
 		/*SimpleWrite askForSomething = new SimpleWrite(readingThread, "CPTR", SimpleWrite.sendingMode.SENDING_WITH_RESPONSE);
-		System.out.println(askForSomething.getResponse());*/
-		
+		System.out.println("getResponse : " + askForSomething.getResponse());
+		int beginTime = LocalDateTime.now().getSecond();
+		while(LocalDateTime.now().getSecond() - beginTime < 2) {}*/
 		//Piloting motors
 
 		SimpleWrite sendSpeed = new SimpleWrite(readingThread, "STOP", SimpleWrite.sendingMode.SIMPLE_SENDING);
 		
 		//Don't forget to always close the reading port
 		readingThread.closePort();
+		}
 	}
 }
