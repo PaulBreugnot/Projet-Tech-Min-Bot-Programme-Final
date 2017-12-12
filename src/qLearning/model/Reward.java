@@ -477,7 +477,7 @@ public class Reward {
 				captorRewards.add(-100);
 				break;
 			case S2:
-				if (i == 0 | i == 4) {
+				if (i == 0) {
 					captorRewards.add(200);
 				}
 				else {
@@ -486,7 +486,7 @@ public class Reward {
 				break;
 
 			case S3:
-				if (i == 0 | i == 4) {
+				if (i == 0) {
 					captorRewards.add(-100);
 				} else {
 					captorRewards.add(0);
@@ -494,7 +494,7 @@ public class Reward {
 				break;
 
 			case S4:
-				if (i == 0 | i == 4) {
+				if (i == 0) {
 					captorRewards.add(-100);
 				} else {
 					captorRewards.add(20);
@@ -502,7 +502,7 @@ public class Reward {
 				break;
 
 			case S5:
-				if (i == 0 | i == 4) {
+				if (i == 0) {
 					captorRewards.add(-100);
 				} else {
 					captorRewards.add(40);
@@ -510,7 +510,7 @@ public class Reward {
 				break;
 
 			case S6:
-				if (i == 0 | i == 4) {
+				if (i == 0) {
 					captorRewards.add(-100);
 				} else {
 					captorRewards.add(60);
@@ -518,7 +518,7 @@ public class Reward {
 				break;
 
 			case S7:
-				if (i == 0 | i == 4) {
+				if (i == 0) {
 					captorRewards.add(-100);
 				} else {
 					captorRewards.add(80);
@@ -526,7 +526,7 @@ public class Reward {
 				break;
 
 			case S8:
-				if (i == 0 | i == 4) {
+				if (i == 0) {
 					captorRewards.add(-100);
 				} else {
 					captorRewards.add(100);
@@ -534,7 +534,7 @@ public class Reward {
 				break;
 
 			case S9:
-				if (i == 0 | i == 4) {
+				if (i == 0) {
 					captorRewards.add(-100);
 				} else {
 					captorRewards.add(120);
@@ -542,7 +542,7 @@ public class Reward {
 				break;
 
 			case S10:
-				if (i == 0 | i == 4) {
+				if (i == 0) {
 					captorRewards.add(-100);
 				} else {
 					captorRewards.add(200);
