@@ -63,7 +63,7 @@ public class Radar {
 			
 			edgeDistance = getEdgeDistance(absoluteCaptorOrientation);
 			if (obstaclesList.size() < 1) {
-				robotCaptors.get(j).setDistance(edgeDistance - titi.getRobotSize());
+				robotCaptors.get(j).setDistance(edgeDistance - titi.getRobotSize() + titi.getRadarOffset());
 			} else {
 				ArrayList<Double> measuredDistance = new ArrayList<>();
 				for (Obstacle obstacle : obstaclesList) {
@@ -144,7 +144,7 @@ public class Radar {
 						}
 					}
 				}
-				robotCaptors.get(j).setDistance(MinArrayList.minArrayList(measuredDistance) - titi.getRobotSize());
+				robotCaptors.get(j).setDistance(MinArrayList.minArrayList(measuredDistance) - titi.getRobotSize() + titi.getRadarOffset());
 			}
 		}
 	}

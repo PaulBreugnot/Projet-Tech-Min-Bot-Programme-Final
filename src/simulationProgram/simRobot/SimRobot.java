@@ -43,7 +43,6 @@ public class SimRobot extends AbstractRobot implements Robot {
 	}
 	
 	public double getXRadar() {
-		System.out.println("xRadar = " + (xPos + radarOffset * Math.cos(alphaOrientation * Math.PI/180)));
 		return xPos + radarOffset * Math.cos(alphaOrientation * Math.PI/180);
 	}
 	
@@ -53,6 +52,10 @@ public class SimRobot extends AbstractRobot implements Robot {
 
 	public double getAlphaOrientation() {
 		return alphaOrientation;
+	}
+	
+	public double getRadarOffset() {
+		return radarOffset;
 	}
 
 	public void setXPos(double xPos) {

@@ -322,8 +322,8 @@ public class GraphicWindow {
 		double xRadar = mainSimulationProgram.getRobot().getXRadar()*scale;
 		double yRadar = mainSimulationProgram.getRobot().getYRadar()*scale;
 		double captorOrientation = mainSimulationProgram.getRobot().getAlphaOrientation() + captor.getCaptorOrientation();
-		double xFinal = xRadar + (captor.getDistance() + mainSimulationProgram.getRobot().getRobotSize()) * Math.cos(captorOrientation * Math.PI/180) * scale;
-		double yFinal = yRadar + (captor.getDistance() + mainSimulationProgram.getRobot().getRobotSize()) * Math.sin(captorOrientation * Math.PI/180) * scale;
+		double xFinal = xRadar + (captor.getDistance() + mainSimulationProgram.getRobot().getRobotSize() - mainSimulationProgram.getRobot().getRadarOffset()) * Math.cos(captorOrientation * Math.PI/180) * scale;
+		double yFinal = yRadar + (captor.getDistance() + mainSimulationProgram.getRobot().getRobotSize() - mainSimulationProgram.getRobot().getRadarOffset()) * Math.sin(captorOrientation * Math.PI/180) * scale;
 		coordinates.add(xRadar);
 		coordinates.add(yRadar);
 		coordinates.add(xFinal);
