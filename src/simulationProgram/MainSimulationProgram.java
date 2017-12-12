@@ -38,13 +38,16 @@ public class MainSimulationProgram extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		System.out.println("Start method inside Thread : " + Thread.currentThread().getName());
-		obstaclesList.add(new Obstacle(3, 1.5, 0.5));
+		/*obstaclesList.add(new Obstacle(3, 1.5, 0.5));
 		obstaclesList.add(new Obstacle(4, 4, 0.3));
-		obstaclesList.add(new Obstacle(0.5, 3, 0.4));
+		obstaclesList.add(new Obstacle(0.5, 3, 0.4));*/
 		obstaclesList.add(new Obstacle(0.1, 0.1, 0.1));
-		obstaclesList.add(new Obstacle(4.9, 0.1, 0.1));
-		obstaclesList.add(new Obstacle(0.1, 4.9, 0.1));
-		obstaclesList.add(new Obstacle(4.9, 4.9, 0.1));
+		obstaclesList.add(new Obstacle(mapWidth - 0.01, 0.1, 0.1));
+		obstaclesList.add(new Obstacle(0.1, mapHeight - 0.01, 0.1));
+		obstaclesList.add(new Obstacle(mapWidth - 0.01, mapHeight - 0.01, 0.1));
+		
+		obstaclesList.add(new Obstacle(mapWidth/2, mapHeight/2, 0.6));
+		
 		radar = new Radar(obstaclesList, titi, map);
 		radar.updateCaptorDistances();
 		Reward.setRobot(titi);
