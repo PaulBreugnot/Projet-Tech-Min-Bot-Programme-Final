@@ -23,7 +23,7 @@ public class Reward {
 
 	private void setNewReward(StateActionPair stateActionPair) {
 		// Action A = stateActionPair.getAction();
-		HashReward.put(stateActionPair, rewardSystem10(stateActionPair));
+		HashReward.put(stateActionPair, rewardSystem8(stateActionPair));
 	}
 
 	public int rewardSystem1(ArrayList<DiscretisedState.RadarStates> radarStates) {
@@ -100,7 +100,9 @@ public class Reward {
 		}
 	}
 
-	public int rewardSystem3(ArrayList<DiscretisedState.RadarStates> radarStates) {
+	public int rewardSystem3(StateActionPair stateActionPair) {
+		ArrayList<DiscretisedState.RadarStates> radarStates = ((DiscretisedState) stateActionPair.getState())
+				.getRadarStates();
 		ArrayList<Integer> captorRewards = new ArrayList<>();
 		int finalReward = 0;
 		for (DiscretisedState.RadarStates state : radarStates) {
@@ -305,7 +307,9 @@ public class Reward {
 		return finalReward;
 	}
 
-	public int rewardSystem6(ArrayList<DiscretisedState.RadarStates> radarStates) {
+	public int rewardSystem6(StateActionPair stateActionPair) {
+		ArrayList<DiscretisedState.RadarStates> radarStates = ((DiscretisedState) stateActionPair.getState())
+				.getRadarStates();
 		ArrayList<Integer> captorRewards = new ArrayList<>();
 		int finalReward = 0;
 		for (int i = 0; i < radarStates.size(); i++) {
@@ -317,10 +321,6 @@ public class Reward {
 						.add((int) (Math.floor(100 * DiscretisedState.value(DiscretisedState.discretized1(h))) - 50));
 			} else {
 				captorRewards.add(100);
-			}
-			if (i == 2) {
-				System.out.println("State : " + state);
-				System.out.println(captorRewards.get(i));
 			}
 		}
 		for (int r : captorRewards) {
@@ -362,7 +362,9 @@ public class Reward {
 		Reward.titi = titi;
 	}
 
-	public int rewardSystem8(ArrayList<DiscretisedState.RadarStates> radarStates) {
+	public int rewardSystem8(StateActionPair stateActionPair) {
+		ArrayList<DiscretisedState.RadarStates> radarStates = ((DiscretisedState) stateActionPair.getState())
+				.getRadarStates();
 		ArrayList<Integer> captorRewards = new ArrayList<>();
 		int finalReward = 0;
 		for (int i = 0; i < radarStates.size(); i++) {
@@ -371,10 +373,6 @@ public class Reward {
 				captorRewards.add((int) ((3 - Math.abs(i - 2)) * (100 * DiscretisedState.value(state) - 25)));
 			} else {
 				captorRewards.add(50);
-			}
-			if (i == 1) {
-				System.out.println("State : " + state);
-				System.out.println(captorRewards.get(i));
 			}
 		}
 		for (int r : captorRewards) {
