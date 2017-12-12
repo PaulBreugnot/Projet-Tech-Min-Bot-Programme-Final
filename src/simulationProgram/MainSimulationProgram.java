@@ -7,7 +7,7 @@ import simulationProgram.simMap.Map;
 import simulationProgram.simMap.Obstacle;
 import simulationProgram.simRobot.SimRobot;
 import simulationProgram.util.Move;
-import simulationProgram.util.Radar;
+import simulationProgram.util.RealRadar;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import qLearning.QLearningAgent;
@@ -28,7 +28,7 @@ public class MainSimulationProgram extends Application {
 	SimRobot titi = new SimRobot(initRobotX, initRobotY, initAngle);
 	ArrayList<Obstacle> obstaclesList = new ArrayList<>();
 	Map map = new Map(mapWidth, mapHeight);
-	Radar radar;
+	RealRadar radar;
 	GraphicWindow graphicWindow;
 
 	public static void main(String[] args) {
@@ -41,14 +41,14 @@ public class MainSimulationProgram extends Application {
 		/*obstaclesList.add(new Obstacle(3, 1.5, 0.5));
 		obstaclesList.add(new Obstacle(4, 4, 0.3));
 		obstaclesList.add(new Obstacle(0.5, 3, 0.4));*/
-		obstaclesList.add(new Obstacle(0.1, 0.1, 0.1));
+		obstaclesList.add(new Obstacle(0.5, 0.5, 0.5));
 		obstaclesList.add(new Obstacle(mapWidth - 0.1, 0.1, 0.1));
 		obstaclesList.add(new Obstacle(0.1, mapHeight - 0.1, 0.1));
 		obstaclesList.add(new Obstacle(mapWidth - 0.1, mapHeight - 0.1, 0.1));
 		
-		obstaclesList.add(new Obstacle(mapWidth/2, mapHeight/2, 0.6));
+		obstaclesList.add(new Obstacle(mapWidth/2+1, mapHeight/2, 0.6));
 		
-		radar = new Radar(obstaclesList, titi, map);
+		radar = new RealRadar(obstaclesList, titi, map);
 		radar.updateCaptorDistances();
 		Reward.setRobot(titi);
 		graphicWindow = new GraphicWindow(stage, this);
@@ -63,10 +63,9 @@ public class MainSimulationProgram extends Application {
 			Action nextAction = qLearningAgent.getAction();
 			if (nextAction == null) {
 				System.out.println("Fail! Restart simulation.");
-				//titi = new SimRobot(2.5, 2.5, 180);
 				titi = new SimRobot(initRobotX, initRobotY, initAngle);
 				Reward.setRobot(titi);
-				radar = new Radar(obstaclesList, titi, map);
+				radar = new RealRadar(obstaclesList, titi, map);
 				initState = getCurrentState();
 				qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD));
 				//QLearningAgent.refreshEpsilon(0.1);
@@ -173,7 +172,7 @@ public class MainSimulationProgram extends Application {
 		return obstaclesList;
 	}
 
-	public Radar getRadar() {
+	public RealRadar getRadar() {
 		return radar;
 	}
 }

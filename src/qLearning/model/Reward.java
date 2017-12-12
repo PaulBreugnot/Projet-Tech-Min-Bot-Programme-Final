@@ -23,7 +23,7 @@ public class Reward {
 
 	private void setNewReward(StateActionPair stateActionPair) {
 		// Action A = stateActionPair.getAction();
-		HashReward.put(stateActionPair, rewardSystem10(stateActionPair));
+		HashReward.put(stateActionPair, rewardSystem8(stateActionPair));
 	}
 
 	public int rewardSystem1(ArrayList<DiscretisedState.RadarStates> radarStates) {
@@ -362,19 +362,18 @@ public class Reward {
 		Reward.titi = titi;
 	}
 
-	public int rewardSystem8(ArrayList<DiscretisedState.RadarStates> radarStates) {
+	public int rewardSystem8(StateActionPair stateActionPair) {
+		ArrayList<DiscretisedState.RadarStates> radarStates = ((DiscretisedState) stateActionPair.getState())
+				.getRadarStates();
 		ArrayList<Integer> captorRewards = new ArrayList<>();
 		int finalReward = 0;
 		for (int i = 0; i < radarStates.size(); i++) {
 			DiscretisedState.RadarStates state = radarStates.get(i);
 			if (state != DiscretisedState.RadarStates.S10) {
-				captorRewards.add((int) ((3 - Math.abs(i - 2)) * (100 * DiscretisedState.value(state) - 25)));
+				//captorRewards.add((int) ((3 - Math.abs(i - 2)) * (100 * DiscretisedState.value(state) - 25)));
+				captorRewards.add((int) ((100 * DiscretisedState.value(state) - 25)));
 			} else {
-				captorRewards.add(50);
-			}
-			if (i == 1) {
-				System.out.println("State : " + state);
-				System.out.println(captorRewards.get(i));
+				captorRewards.add(100);
 			}
 		}
 		for (int r : captorRewards) {

@@ -7,7 +7,7 @@ import gnu.io.*;
 public class SimpleRead implements Runnable, SerialPortEventListener {
     static CommPortIdentifier portId;
     static Enumeration portList;
-    static String receiverPortName = "COM3";
+    static String receiverPortName = "COM9";
     private String receivedData = "noData";
     private SerialPort serialPort;
     static InputStream inputStream;

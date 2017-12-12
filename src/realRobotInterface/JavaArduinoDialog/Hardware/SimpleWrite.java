@@ -7,7 +7,7 @@ import java.util.*;
 import gnu.io.*;
 
 public class SimpleWrite{
-    static String transmitterPortName = "COM3";
+    static String transmitterPortName = "COM9";
     static String messageToSend;
     static Enumeration portList;
     static CommPortIdentifier portId;
