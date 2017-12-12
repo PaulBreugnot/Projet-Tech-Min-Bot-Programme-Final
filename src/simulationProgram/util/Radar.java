@@ -11,8 +11,8 @@ import simulationProgram.simRobot.SimCaptor;
 public class Radar {
 	private double mapWidth;
 	private double mapHeight;
-	private double xRobot;
-	private double yRobot;
+	private double xRadar;
+	private double yRadar;
 	private double robotSize;
 	private double alphaOrientation;
 	private ArrayList<Captor> robotCaptors;
@@ -34,15 +34,15 @@ public class Radar {
 	public void updateCaptorDistances() {
 		mapWidth = map.getWidth();
 		mapHeight = map.getHeight();
-		xRobot = titi.getXPos();
-		yRobot = titi.getYPos();
+		xRadar = titi.getXRadar();
+		yRadar = titi.getYRadar();
 
 		robotSize = titi.getRobotSize();
 		alphaOrientation = titi.getAlphaOrientation();
 		robotCaptors = titi.getRobotCaptors();
 
-		if (xRobot > mapWidth - robotSize || xRobot < robotSize || yRobot > mapHeight - robotSize
-				|| yRobot < robotSize) {
+		if (xRadar > mapWidth - robotSize || xRadar < robotSize || yRadar > mapHeight - robotSize
+				|| yRadar < robotSize) {
 			// capteurs.set(0, (double) -1);
 			for (Captor captor : robotCaptors)
 				captor.setDistance(0);
@@ -67,8 +67,8 @@ public class Radar {
 			} else {
 				ArrayList<Double> measuredDistance = new ArrayList<>();
 				for (Obstacle obstacle : obstaclesList) {
-					if ((obstacle.getXPos() - xRobot) * (obstacle.getXPos() - xRobot) + (obstacle.getYPos() - yRobot)
-							* (obstacle.getYPos() - yRobot) < (obstacle.getRadius() + robotSize)
+					if ((obstacle.getXPos() - xRadar) * (obstacle.getXPos() - xRadar) + (obstacle.getYPos() - yRadar)
+							* (obstacle.getYPos() - yRadar) < (obstacle.getRadius() + robotSize)
 									* (obstacle.getRadius() + robotSize)) {
 						// le robot n'est pas dans l'obstacle
 						// détermination de la distance des capteurs à l'obstacle
@@ -87,58 +87,58 @@ public class Radar {
 					} else if (solutions.size() == 2) {
 						// 1seule solution : vérifier juste la demi-droite
 						if (0 <= absoluteCaptorOrientation && absoluteCaptorOrientation < 180) {
-							if (solutions.get(1) >= yRobot) {
+							if (solutions.get(1) >= yRadar) {
 								measuredDistance
-										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRobot - solutions.get(0), 2)
-												+ Math.pow(yRobot - solutions.get(1), 2))));
+										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRadar - solutions.get(0), 2)
+												+ Math.pow(yRadar - solutions.get(1), 2))));
 							}
 						}
 
 						else {
-							if (solutions.get(1) <= yRobot) {
+							if (solutions.get(1) <= yRadar) {
 								measuredDistance
-										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRobot - solutions.get(0), 2)
-												+ Math.pow(yRobot - solutions.get(1), 2))));
+										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRadar - solutions.get(0), 2)
+												+ Math.pow(yRadar - solutions.get(1), 2))));
 							}
 						}
 					} else {
 						// 2 solutions
 						if (0 <= absoluteCaptorOrientation && absoluteCaptorOrientation < 180) {
-							if (solutions.get(1) >= yRobot && solutions.get(3) >= yRobot) {
+							if (solutions.get(1) >= yRadar && solutions.get(3) >= yRadar) {
 								measuredDistance.add(Math.min(edgeDistance,
 										Math.min(
-												Math.sqrt(Math.pow(xRobot - solutions.get(0), 2)
-														+ Math.pow(yRobot - solutions.get(1), 2)),
-												Math.sqrt(Math.pow(xRobot - solutions.get(2), 2)
-														+ Math.pow(yRobot - solutions.get(3), 2)))));
-							} else if (solutions.get(1) >= yRobot && solutions.get(3) <= yRobot) {
+												Math.sqrt(Math.pow(xRadar - solutions.get(0), 2)
+														+ Math.pow(yRadar - solutions.get(1), 2)),
+												Math.sqrt(Math.pow(xRadar - solutions.get(2), 2)
+														+ Math.pow(yRadar - solutions.get(3), 2)))));
+							} else if (solutions.get(1) >= yRadar && solutions.get(3) <= yRadar) {
 								measuredDistance
-										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRobot - solutions.get(0), 2)
-												+ Math.pow(yRobot - solutions.get(1), 2))));
-							} else if (solutions.get(1) <= yRobot && solutions.get(3) >= yRobot) {
+										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRadar - solutions.get(0), 2)
+												+ Math.pow(yRadar - solutions.get(1), 2))));
+							} else if (solutions.get(1) <= yRadar && solutions.get(3) >= yRadar) {
 								measuredDistance
-										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRobot - solutions.get(2), 2)
-												+ Math.pow(yRobot - solutions.get(3), 2))));
-							} else if (solutions.get(1) <= yRobot && solutions.get(3) <= yRobot) {
+										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRadar - solutions.get(2), 2)
+												+ Math.pow(yRadar - solutions.get(3), 2))));
+							} else if (solutions.get(1) <= yRadar && solutions.get(3) <= yRadar) {
 								measuredDistance.add(edgeDistance);
 							}
 						} else {
-							if (solutions.get(1) >= yRobot && solutions.get(3) <= yRobot) {
+							if (solutions.get(1) >= yRadar && solutions.get(3) <= yRadar) {
 								measuredDistance
-										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRobot - solutions.get(2), 2)
-												+ Math.pow(yRobot - solutions.get(3), 2))));
-							} else if (solutions.get(1) <= yRobot && solutions.get(3) >= yRobot) {
+										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRadar - solutions.get(2), 2)
+												+ Math.pow(yRadar - solutions.get(3), 2))));
+							} else if (solutions.get(1) <= yRadar && solutions.get(3) >= yRadar) {
 								measuredDistance
-										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRobot - solutions.get(0), 2)
-												+ Math.pow(yRobot - solutions.get(1), 2))));
-							} else if (solutions.get(1) <= yRobot && solutions.get(3) <= yRobot) {
+										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRadar - solutions.get(0), 2)
+												+ Math.pow(yRadar - solutions.get(1), 2))));
+							} else if (solutions.get(1) <= yRadar && solutions.get(3) <= yRadar) {
 								measuredDistance.add(Math.min(edgeDistance,
 										Math.min(
-												Math.sqrt(Math.pow(xRobot - solutions.get(0), 2)
-														+ Math.pow(yRobot - solutions.get(1), 2)),
-												Math.sqrt(Math.pow(xRobot - solutions.get(2), 2)
-														+ Math.pow(yRobot - solutions.get(3), 2)))));
-							} else if (solutions.get(1) >= yRobot && solutions.get(3) >= yRobot) {
+												Math.sqrt(Math.pow(xRadar - solutions.get(0), 2)
+														+ Math.pow(yRadar - solutions.get(1), 2)),
+												Math.sqrt(Math.pow(xRadar - solutions.get(2), 2)
+														+ Math.pow(yRadar - solutions.get(3), 2)))));
+							} else if (solutions.get(1) >= yRadar && solutions.get(3) >= yRadar) {
 								measuredDistance.add(edgeDistance);
 							}
 						}
@@ -163,7 +163,7 @@ public class Radar {
 
 		// equation de la droite de vision du capteur
 		a = Math.tan(alpharadar * Math.PI / 180);
-		b = (yRobot - a * xRobot);
+		b = (yRadar - a * xRadar);
 
 		double xintersection1;
 		double xintersection2;
@@ -185,19 +185,19 @@ public class Radar {
 		// d3 : distance to right edge if defined
 		// d4 : distance to left edge if defined
 		if (0 <= xintersection1 && xintersection1 <= mapWidth) {
-			d1 = Math.sqrt(Math.pow(mapHeight - yRobot, 2) + Math.pow(xRobot - xintersection1, 2));
+			d1 = Math.sqrt(Math.pow(mapHeight - yRadar, 2) + Math.pow(xRadar - xintersection1, 2));
 		} else
 			d1 = -1;
 		if (0 <= xintersection2 && xintersection2 <= mapWidth) {
-			d2 = Math.sqrt(Math.pow(yRobot, 2) + Math.pow(xRobot - xintersection2, 2));
+			d2 = Math.sqrt(Math.pow(yRadar, 2) + Math.pow(xRadar - xintersection2, 2));
 		} else
 			d2 = -1;
 		if (0 <= yintersection3 && yintersection3 <= mapHeight) {
-			d3 = Math.sqrt(Math.pow(yintersection3 - yRobot, 2) + Math.pow(mapWidth - xRobot, 2));
+			d3 = Math.sqrt(Math.pow(yintersection3 - yRadar, 2) + Math.pow(mapWidth - xRadar, 2));
 		} else
 			d3 = -1;
 		if (0 <= yintersection4 && yintersection4 <= mapHeight) {
-			d4 = Math.sqrt(Math.pow(yintersection4 - yRobot, 2) + Math.pow(xRobot, 2));
+			d4 = Math.sqrt(Math.pow(yintersection4 - yRadar, 2) + Math.pow(xRadar, 2));
 		} else
 			d4 = -1;
 
@@ -242,7 +242,7 @@ public class Radar {
 		// equation de la droite de vision du capteur
 		if (alpharadar != 270 && alpharadar != 90) {
 		a = Math.tan(alpharadar * Math.PI / 180);
-		b = (yRobot - a * xRobot);
+		b = (yRadar - a * xRadar);
 
 		double A = 1 + a * a;
 		double B = 2 * (-cx + a * b - a * cy);
@@ -269,14 +269,14 @@ public class Radar {
 		}
 		}
 		else {
-			if(cx-r < xRobot && xRobot < cx+r) {
-				lst.add(xRobot);
-				lst.add(cy + Math.sqrt(r*r - Math.pow(cx - xRobot,2)));
-				lst.add(xRobot);
-				lst.add(cy - Math.sqrt(r*r - Math.pow(cx - xRobot,2)));
+			if(cx-r < xRadar && xRadar < cx+r) {
+				lst.add(xRadar);
+				lst.add(cy + Math.sqrt(r*r - Math.pow(cx - xRadar,2)));
+				lst.add(xRadar);
+				lst.add(cy - Math.sqrt(r*r - Math.pow(cx - xRadar,2)));
 			}
-			else if (cx-r == xRobot | xRobot == cx+r) {
-				lst.add(xRobot);
+			else if (cx-r == xRadar | xRadar == cx+r) {
+				lst.add(xRadar);
 				lst.add(cy);
 			}
 		}
