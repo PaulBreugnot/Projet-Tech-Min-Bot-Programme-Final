@@ -8,7 +8,7 @@ public class SimRobot extends AbstractRobot implements Robot {
 	private double xPos;
 	private double yPos;
 	private double alphaOrientation;
-	private final double radarOffset = 4.5;
+	private final double radarOffset = 0.045;
 	private final double wheelRadius = 0.069/2;
 	private final double robotSize = 0.2; // Radius of the robot modeled by a circle
 
@@ -43,6 +43,7 @@ public class SimRobot extends AbstractRobot implements Robot {
 	}
 	
 	public double getXRadar() {
+		System.out.println("xRadar = " + (xPos + radarOffset * Math.cos(alphaOrientation * Math.PI/180)));
 		return xPos + radarOffset * Math.cos(alphaOrientation * Math.PI/180);
 	}
 	
