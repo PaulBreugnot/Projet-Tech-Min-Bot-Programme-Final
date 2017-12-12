@@ -8,7 +8,7 @@ import simulationProgram.simMap.Obstacle;
 import simulationProgram.simRobot.SimRobot;
 import simulationProgram.simRobot.SimCaptor;
 
-public class RealRadar {
+public class SimRadar {
 	private double mapWidth;
 	private double mapHeight;
 	private double xRadar;
@@ -25,7 +25,7 @@ public class RealRadar {
 	public boolean crash = false;
 	// il y a l'arraylist capteur, qu'il faut recuperer du robot
 
-	public RealRadar(ArrayList<Obstacle> obstaclesList, SimRobot titi, Map map) {
+	public SimRadar(ArrayList<Obstacle> obstaclesList, SimRobot titi, Map map) {
 		this.obstaclesList = obstaclesList;
 		this.titi = titi;
 		this.map = map;

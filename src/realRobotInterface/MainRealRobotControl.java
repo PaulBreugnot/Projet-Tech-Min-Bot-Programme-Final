@@ -7,7 +7,7 @@ import simulationProgram.simMap.Map;
 import simulationProgram.simMap.Obstacle;
 import simulationProgram.simRobot.SimRobot;
 import simulationProgram.util.Move;
-import simulationProgram.util.RealRadar;
+import simulationProgram.util.SimRadar;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import qLearning.QLearningAgent;
@@ -21,7 +21,7 @@ import simulationProgram.graph.GraphicWindow;
 public class MainRealRobotControl extends Application {
 
 	RealRobot titi = new RealRobot();
-	RealRadar radar;
+	SimRadar radar;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -31,7 +31,7 @@ public class MainRealRobotControl extends Application {
 	public void start(Stage stage) throws Exception {
 		System.out.println("Start method inside Thread : " + Thread.currentThread().getName());
 		
-		radar = new RealRadar(titi);
+		radar = new SimRadar(titi);
 		radar.updateCaptorDistances();
 		Reward.setRobot(titi);
 		//graphicWindow = new GraphicWindow(stage, this);
@@ -49,7 +49,7 @@ public class MainRealRobotControl extends Application {
 				WaitForReinitialize();
 				titi = new RealRobot();
 				Reward.setRobot(titi);
-				radar = new RealRadar(titi);
+				radar = new SimRadar(titi);
 				initState = getCurrentState();
 				qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD));
 				//QLearningAgent.refreshEpsilon(0.1);
@@ -146,7 +146,7 @@ public class MainRealRobotControl extends Application {
 		return titi;
 	}
 
-	public RealRadar getRadar() {
+	public SimRadar getRadar() {
 		return radar;
 	}
 }
