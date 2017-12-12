@@ -319,14 +319,16 @@ public class GraphicWindow {
 	
 	private ArrayList<Double> getLineCoordinates(SimCaptor captor){
 		ArrayList<Double> coordinates = new ArrayList<>();
-		double xRobot = mainSimulationProgram.getRobot().getXPos()*scale;
-		double yRobot = mainSimulationProgram.getRobot().getYPos()*scale;
+		double xRadar = mainSimulationProgram.getRobot().getXRadar()*scale;
+		double yRadar = mainSimulationProgram.getRobot().getYRadar()*scale;
 		double captorOrientation = mainSimulationProgram.getRobot().getAlphaOrientation() + captor.getCaptorOrientation();
-		double xFinal = xRobot + (captor.getDistance() + mainSimulationProgram.getRobot().getRobotSize()) * Math.cos(captorOrientation * Math.PI/180) * scale;
-		double yFinal = yRobot + (captor.getDistance() + mainSimulationProgram.getRobot().getRobotSize()) * Math.sin(captorOrientation * Math.PI/180) * scale;
-		coordinates.add(xRobot);
-		coordinates.add(yRobot);
+		double xFinal = xRadar + (captor.getDistance() + mainSimulationProgram.getRobot().getRobotSize()) * Math.cos(captorOrientation * Math.PI/180) * scale;
+		double yFinal = yRadar + (captor.getDistance() + mainSimulationProgram.getRobot().getRobotSize()) * Math.sin(captorOrientation * Math.PI/180) * scale;
+		coordinates.add(xRadar);
+		System.out.println("xRadar = " + xRadar/scale);
+		coordinates.add(yRadar);
 		coordinates.add(xFinal);
+		System.out.println("xFinal = " + xFinal/scale);
 		coordinates.add(yFinal);
 		return coordinates;
 	}
