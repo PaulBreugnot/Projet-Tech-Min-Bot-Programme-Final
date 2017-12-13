@@ -371,7 +371,7 @@ public class Reward {
 			DiscretisedState.RadarStates state = radarStates.get(i);
 			if (state != DiscretisedState.RadarStates.S10) {
 				//captorRewards.add((int) ((3 - Math.abs(i - 2)) * (100 * DiscretisedState.value(state) - 25)));
-				captorRewards.add((int) ((100 * DiscretisedState.value(state) - 25)));
+				captorRewards.add((int) ((100 * DiscretisedState.value(state) - 50)));
 			} else {
 				//captorRewards.add(100);
 				captorRewards.add(50);

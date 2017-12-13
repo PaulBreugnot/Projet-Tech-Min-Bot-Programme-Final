@@ -9,15 +9,15 @@ public class DiscretisedState extends State {
 	}
 
 	public static final double S0value = 0.10;
-	public static final double S1value = 0.20;
-	public static final double S2value = 0.30;
-	public static final double S3value = 0.40;
-	public static final double S4value = 0.50;
-	public static final double S5value = 0.60;
-	public static final double S6value = 0.70;
-	public static final double S7value = 0.80;
-	public static final double S8value = 0.90;
-	public static final double S9value = 1.0;
+	public static final double S1value = 0.129;
+	public static final double S2value = 0.216;
+	public static final double S3value = 0.361;
+	public static final double S4value = 0.564;
+	public static final double S5value = 0.825;
+	public static final double S6value = 1.144;
+	public static final double S7value = 1.521;
+	public static final double S8value = 1.956;
+	public static final double S9value = 2.449;
 	public RadarStates radar1;
 	public RadarStates radar2;
 	public RadarStates radar3;

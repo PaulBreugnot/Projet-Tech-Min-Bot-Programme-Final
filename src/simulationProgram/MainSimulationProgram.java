@@ -1,5 +1,6 @@
 package simulationProgram;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import commonInterface.Captor;
@@ -22,7 +23,7 @@ public class MainSimulationProgram extends Application {
 	static final double mapWidth = 5;
 	static final double mapHeight = 5;
 	static final double initRobotX = 2.5;
-	static final double initRobotY = 4;
+	static final double initRobotY = 2.5;
 	static final double initAngle = 180; 
 
 	SimRobot titi = new SimRobot(initRobotX, initRobotY, initAngle);
@@ -38,17 +39,17 @@ public class MainSimulationProgram extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		System.out.println("Start method inside Thread : " + Thread.currentThread().getName());
-		//obstaclesList.add(new Obstacle(3, 1.5, 0.5));
-		//obstaclesList.add(new Obstacle(4, 4, 0.3));
+		obstaclesList.add(new Obstacle(3, 1.5, 0.5));
+		obstaclesList.add(new Obstacle(4, 4, 0.3));
+		obstaclesList.add(new Obstacle(0.5, 3, 0.4));
+		//obstaclesList.add(new Obstacle(0.5, 0.5, 0.5));
 		//obstaclesList.add(new Obstacle(0.5, 3, 0.4));
-		obstaclesList.add(new Obstacle(0.5, 0.5, 0.5));
-/*		obstaclesList.add(new Obstacle(0.5, 3, 0.4));
-		obstaclesList.add(new Obstacle(0.1, 0.1, 0.1));*/
+		obstaclesList.add(new Obstacle(0.1, 0.1, 0.1));
 		obstaclesList.add(new Obstacle(mapWidth - 0.1, 0.1, 0.1));
 		obstaclesList.add(new Obstacle(0.1, mapHeight - 0.1, 0.1));
 		obstaclesList.add(new Obstacle(mapWidth - 0.1, mapHeight - 0.1, 0.1));
 		
-		obstaclesList.add(new Obstacle(mapWidth/2+1, mapHeight/2, 0.6));
+		//obstaclesList.add(new Obstacle(mapWidth/2+1, mapHeight/2, 0.6));
 		//obstaclesList.add(new Obstacle(mapWidth/2, 0.5, 0.4));
 		
 		radar = new SimRadar(obstaclesList, titi, map);
@@ -65,7 +66,7 @@ public class MainSimulationProgram extends Application {
 		while (true) {
 			Action nextAction = qLearningAgent.getAction();
 			if (nextAction == null) {
-				System.out.println("Fail! Restart simulation.");
+				System.out.println(LocalDateTime.now() + "Fail! Restart simulation.");
 				titi = new SimRobot(initRobotX, initRobotY, initAngle);
 				Reward.setRobot(titi);
 				radar = new SimRadar(obstaclesList, titi, map);

@@ -86,7 +86,7 @@ public class SimRadar {
 
 					} else if (solutions.size() == 2) {
 						// 1seule solution : vérifier juste la demi-droite
-						if (0 <= absoluteCaptorOrientation && absoluteCaptorOrientation < 180) {
+						/*if (0 <= absoluteCaptorOrientation && absoluteCaptorOrientation < 180) {
 							if (solutions.get(1) >= yRadar) {
 								measuredDistance
 										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRadar - solutions.get(0), 2)
@@ -100,7 +100,8 @@ public class SimRadar {
 										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRadar - solutions.get(0), 2)
 												+ Math.pow(yRadar - solutions.get(1), 2))));
 							}
-						}
+						}*/
+						measuredDistance.add(edgeDistance);
 					} else {
 						// 2 solutions
 						if (0 <= absoluteCaptorOrientation && absoluteCaptorOrientation < 180) {
@@ -111,16 +112,27 @@ public class SimRadar {
 														+ Math.pow(yRadar - solutions.get(1), 2)),
 												Math.sqrt(Math.pow(xRadar - solutions.get(2), 2)
 														+ Math.pow(yRadar - solutions.get(3), 2)))));
-							} else if (solutions.get(1) >= yRadar && solutions.get(3) <= yRadar) {
+							} else if (solutions.get(1) > yRadar && solutions.get(3) < yRadar) {
 								measuredDistance
 										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRadar - solutions.get(0), 2)
 												+ Math.pow(yRadar - solutions.get(1), 2))));
-							} else if (solutions.get(1) <= yRadar && solutions.get(3) >= yRadar) {
+							} else if (solutions.get(1) < yRadar && solutions.get(3) > yRadar) {
 								measuredDistance
 										.add(Math.min(edgeDistance, Math.sqrt(Math.pow(xRadar - solutions.get(2), 2)
 												+ Math.pow(yRadar - solutions.get(3), 2))));
-							} else if (solutions.get(1) <= yRadar && solutions.get(3) <= yRadar) {
+							} else if (solutions.get(1) < yRadar && solutions.get(3) < yRadar) {
 								measuredDistance.add(edgeDistance);
+							}
+							else if (solutions.get(1) == yRadar || solutions.get(3) == yRadar) {
+								if (solutions.get(2) < xRadar) {
+									measuredDistance.add(edgeDistance);
+								} else if (solutions.get(2) > xRadar) {
+									measuredDistance.add(Math.min(
+											Math.sqrt(Math.pow(xRadar - solutions.get(0), 2)
+													+ Math.pow(yRadar - solutions.get(1), 2)),
+											Math.sqrt(Math.pow(xRadar - solutions.get(2), 2)
+													+ Math.pow(yRadar - solutions.get(3), 2))));
+								}
 							}
 						} else {
 							if (solutions.get(1) > yRadar && solutions.get(3) < yRadar) {
@@ -143,7 +155,7 @@ public class SimRadar {
 							} else if (solutions.get(1) == yRadar || solutions.get(3) == yRadar) {
 								if (solutions.get(2) > xRadar) {
 									measuredDistance.add(edgeDistance);
-								} else if (solutions.get(2) > xRadar) {
+								} else if (solutions.get(2) < xRadar) {
 									measuredDistance.add(Math.min(
 											Math.sqrt(Math.pow(xRadar - solutions.get(0), 2)
 													+ Math.pow(yRadar - solutions.get(1), 2)),

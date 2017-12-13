@@ -2,17 +2,12 @@ package realRobotInterface;
 
 import java.util.ArrayList;
 
-import commonInterface.Captor;
-import simulationProgram.simMap.Map;
-import simulationProgram.simMap.Obstacle;
-import simulationProgram.simRobot.SimRobot;
-import simulationProgram.util.Move;
-import simulationProgram.util.SimRadar;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import qLearning.QLearningAgent;
 import qLearning.model.Action;
 import qLearning.model.Reward;
+import realRobotInterface.JavaArduinoDialog.Hardware.RealRadar;
 import realRobotInterface.realRobot.RealRobot;
 import qLearning.model.DiscretisedAction;
 import qLearning.model.DiscretisedState;
@@ -21,7 +16,7 @@ import simulationProgram.graph.GraphicWindow;
 public class MainRealRobotControl extends Application {
 
 	RealRobot titi = new RealRobot();
-	SimRadar radar;
+	RealRadar radar;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -31,7 +26,7 @@ public class MainRealRobotControl extends Application {
 	public void start(Stage stage) throws Exception {
 		System.out.println("Start method inside Thread : " + Thread.currentThread().getName());
 		
-		radar = new SimRadar(titi);
+		radar = new RealRadar(titi);
 		radar.updateCaptorDistances();
 		Reward.setRobot(titi);
 		//graphicWindow = new GraphicWindow(stage, this);
@@ -49,7 +44,7 @@ public class MainRealRobotControl extends Application {
 				WaitForReinitialize();
 				titi = new RealRobot();
 				Reward.setRobot(titi);
-				radar = new SimRadar(titi);
+				radar = new RealRadar(titi);
 				initState = getCurrentState();
 				qLearningAgent = new QLearningAgent(initState, new DiscretisedAction(DiscretisedAction.Actions.GO_FORWARD));
 				//QLearningAgent.refreshEpsilon(0.1);
@@ -142,11 +137,14 @@ public class MainRealRobotControl extends Application {
 		return availableActions;
 	}
 
+	public void WaitForReinitialize() {
+		
+	}
 	public RealRobot getRobot() {
 		return titi;
 	}
 
-	public SimRadar getRadar() {
+	public RealRadar getRadar() {
 		return radar;
 	}
 }
