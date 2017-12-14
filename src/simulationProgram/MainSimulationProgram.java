@@ -26,6 +26,7 @@ public class MainSimulationProgram extends Application {
 	static final double initRobotY = 2.5;
 	static final double initAngle = 180; 
 
+	private int AttemptsNumber = 0;
 	SimRobot titi = new SimRobot(initRobotX, initRobotY, initAngle);
 	ArrayList<Obstacle> obstaclesList = new ArrayList<>();
 	Map map = new Map(mapWidth, mapHeight);
@@ -66,7 +67,8 @@ public class MainSimulationProgram extends Application {
 		while (true) {
 			Action nextAction = qLearningAgent.getAction();
 			if (nextAction == null) {
-				System.out.println(LocalDateTime.now() + "Fail! Restart simulation.");
+				System.out.println(LocalDateTime.now() + "  Fail! Restart simulation.");
+				AttemptsNumber += 1;
 				titi = new SimRobot(initRobotX, initRobotY, initAngle);
 				Reward.setRobot(titi);
 				radar = new SimRadar(obstaclesList, titi, map);
@@ -178,5 +180,9 @@ public class MainSimulationProgram extends Application {
 
 	public SimRadar getRadar() {
 		return radar;
+	}
+	
+	public int getAttemptsNumber() {
+		return AttemptsNumber;
 	}
 }

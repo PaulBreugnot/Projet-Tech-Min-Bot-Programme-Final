@@ -23,7 +23,7 @@ public class Reward {
 
 	private void setNewReward(StateActionPair stateActionPair) {
 		// Action A = stateActionPair.getAction();
-		HashReward.put(stateActionPair, rewardSystem8(stateActionPair));
+		HashReward.put(stateActionPair, rewardSystem6(stateActionPair));
 	}
 
 	public int rewardSystem1(ArrayList<DiscretisedState.RadarStates> radarStates) {
@@ -320,7 +320,7 @@ public class Reward {
 				captorRewards
 						.add((int) (Math.floor(100 * DiscretisedState.value(DiscretisedState.discretized1(h))) - 50));
 			} else {
-				captorRewards.add(100);
+				captorRewards.add(300);
 			}
 		}
 		for (int r : captorRewards) {

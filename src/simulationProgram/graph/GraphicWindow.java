@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -46,6 +47,7 @@ public class GraphicWindow {
 	private Line captorLine5;
 	private Label labelV1;
 	private Label labelV2;
+	private Label AttemptsLabel;
 	
 	public ArrayList<Double[]> testSequence = Move.moveTest();
 	
@@ -72,7 +74,7 @@ public class GraphicWindow {
 		AnchorPane.setLeftAnchor(vbox, 10.0);
 		AnchorPane.setRightAnchor(vbox, 10.0);
 
-		vbox.getChildren().addAll(setRunButton(), setMapView(), setDataView());
+		vbox.getChildren().addAll(setTopPart(), setMapView(), setDataView());
 
 		root.getChildren().add(vbox);
 
@@ -111,6 +113,18 @@ public class GraphicWindow {
 		});
 
 		return runButton;
+	}
+	
+	public HBox setTopPart() {
+		HBox top = new HBox();
+
+		AttemptsLabel = new Label(Integer.toString(mainSimulationProgram.getAttemptsNumber()));
+		top.setAlignment(Pos.CENTER);
+		top.setSpacing(30);
+		
+		top.getChildren().addAll(new Label("Attempts : "), AttemptsLabel, setRunButton());
+		
+		return top;
 	}
 
 	public StackPane setMapView() {
@@ -243,6 +257,7 @@ public class GraphicWindow {
 		dataGridPane.add(labelV1, 3, 0);
 		labelV2 = new Label(Double.toString(mainSimulationProgram.getRobot().getV2()));
 		dataGridPane.add(labelV2, 3, 1);
+		
 	}
 	
 	public void updateDataLabels() {
@@ -254,6 +269,8 @@ public class GraphicWindow {
 		
 		Platform.runLater(() -> labelV1.setText(Double.toString(Round.RoundDouble(mainSimulationProgram.getRobot().getRobotMotors().get(0).getSpeed(),3))));
 		Platform.runLater(() -> labelV2.setText(Double.toString(Round.RoundDouble(mainSimulationProgram.getRobot().getRobotMotors().get(1).getSpeed(),3))));
+	
+		Platform.runLater(() -> AttemptsLabel.setText(Integer.toString(mainSimulationProgram.getAttemptsNumber())));
 	}
 	
 	public void updateGraphicItems() {
