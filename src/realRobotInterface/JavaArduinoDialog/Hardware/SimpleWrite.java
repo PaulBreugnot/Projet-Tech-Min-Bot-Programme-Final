@@ -7,6 +7,7 @@ import java.util.*;
 import gnu.io.*;
 
 public class SimpleWrite{
+	static final int waitingDelay = 2;
     static String transmitterPortName = "COM9";
     static String messageToSend;
     static Enumeration portList;
@@ -92,9 +93,9 @@ public class SimpleWrite{
     	messageToSend = querry;
     	main(null);
 		//wait for Arduino response
-		int beginTime = LocalDateTime.now().getSecond();
+		LocalDateTime limitTime = LocalDateTime.now().plusNanos(waitingDelay);
 		System.out.println("-----Waiting for Arduino Response-----");
-		while(readingThread.getReceivedData() == "noData" && LocalDateTime.now().getSecond() - beginTime < 2) {
+		while(readingThread.getReceivedData() == "noData" && (LocalDateTime.now().compareTo(limitTime) < 0)) {
 			//System.out.println(LocalDateTime.now().getSecond());
 			/*if(LocalDateTime.now().getSecond() - beginTime >= 2) {
 			System.out.println("Retry...");
