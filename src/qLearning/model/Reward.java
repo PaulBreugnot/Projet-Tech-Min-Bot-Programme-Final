@@ -23,7 +23,7 @@ public class Reward {
 
 	private void setNewReward(StateActionPair stateActionPair) {
 		// Action A = stateActionPair.getAction();
-		HashReward.put(stateActionPair, rewardSystem8(stateActionPair));
+		HashReward.put(stateActionPair, rewardSystem11(stateActionPair));
 	}
 
 	public int rewardSystem1(ArrayList<DiscretisedState.RadarStates> radarStates) {
@@ -159,7 +159,9 @@ public class Reward {
 		return finalReward;
 	}
 
-	public int rewardSystem4(ArrayList<DiscretisedState.RadarStates> radarStates) {
+	public int rewardSystem4(StateActionPair stateActionPair) {
+		ArrayList<DiscretisedState.RadarStates> radarStates = ((DiscretisedState) stateActionPair.getState())
+				.getRadarStates();
 		// /!\ Only 3 states
 		ArrayList<Integer> captorRewards = new ArrayList<>();
 		int finalReward = 0;
@@ -387,13 +389,14 @@ public class Reward {
 		for (int i = 0; i < radarStates.size(); i++) {
 			DiscretisedState.RadarStates state = radarStates.get(i);
 			if (state != DiscretisedState.RadarStates.S10) {
-				//captorRewards.add((int) ((3 - Math.abs(i - 2)) * (100 * DiscretisedState.value(state) - 25)));
+				// captorRewards.add((int) ((3 - Math.abs(i - 2)) * (100 *
+				// DiscretisedState.value(state) - 25)));
 				captorRewards.add((int) ((100 * DiscretisedState.value(state) - 50)));
 			} else {
 				captorRewards.add((int) (110 * DiscretisedState.value(DiscretisedState.RadarStates.S9)));
 			}
 		}
-		//System.out.println("Captor rewards : " + captorRewards);
+		// System.out.println("Captor rewards : " + captorRewards);
 		for (int r : captorRewards) {
 			finalReward += r;
 		}
@@ -496,9 +499,8 @@ public class Reward {
 			case S2:
 				if (i == 4) {
 					captorRewards.add(200);
-				}
-				else {
-				captorRewards.add(-50);
+				} else {
+					captorRewards.add(-50);
 				}
 				break;
 
@@ -578,6 +580,35 @@ public class Reward {
 
 		if (stateActionPair.getAction().getValue() == DiscretisedAction.Actions.GO_FORWARD) {
 			finalReward += 0;
+		}
+		return finalReward;
+	}
+
+	public int rewardSystem11(StateActionPair stateActionPair) {
+		ArrayList<DiscretisedState.RadarStates> radarStates = ((DiscretisedState) stateActionPair.getState())
+				.getRadarStates();
+		// /!\ Only 3 states
+		ArrayList<Integer> captorRewards = new ArrayList<>();
+		int finalReward = 0;
+		for (int i = 0; i < radarStates.size(); i++) {
+			DiscretisedState.RadarStates state = radarStates.get(i);
+			switch (state) {
+			case S0:
+				captorRewards.add(-20);
+				break;
+			case S1:
+				captorRewards.add(10);
+				break;
+			case S2:
+				captorRewards.add(50);
+				break;
+			default:
+				captorRewards.add(50);
+				break;
+			}
+		}
+		for (int r : captorRewards) {
+			finalReward += r;
 		}
 		return finalReward;
 	}
