@@ -23,7 +23,7 @@ public class Reward {
 
 	private void setNewReward(StateActionPair stateActionPair) {
 		// Action A = stateActionPair.getAction();
-		HashReward.put(stateActionPair, rewardSystem6(stateActionPair));
+		HashReward.put(stateActionPair, rewardSystem8(stateActionPair));
 	}
 
 	public int rewardSystem1(ArrayList<DiscretisedState.RadarStates> radarStates) {
@@ -224,6 +224,23 @@ public class Reward {
 				}
 				break;
 			default:
+				switch (i) {
+				case 0:
+					captorRewards.add(10);
+					break;
+				case 1:
+					captorRewards.add(20);
+					break;
+				case 2:
+					captorRewards.add(50);
+					break;
+				case 3:
+					captorRewards.add(20);
+					break;
+				case 4:
+					captorRewards.add(10);
+					break;
+				}
 				break;
 			}
 		}
@@ -373,10 +390,10 @@ public class Reward {
 				//captorRewards.add((int) ((3 - Math.abs(i - 2)) * (100 * DiscretisedState.value(state) - 25)));
 				captorRewards.add((int) ((100 * DiscretisedState.value(state) - 50)));
 			} else {
-				//captorRewards.add(100);
-				captorRewards.add(50);
+				captorRewards.add((int) (110 * DiscretisedState.value(DiscretisedState.RadarStates.S9)));
 			}
 		}
+		//System.out.println("Captor rewards : " + captorRewards);
 		for (int r : captorRewards) {
 			finalReward += r;
 		}

@@ -9,42 +9,47 @@ import qLearning.model.State;
 import qLearning.model.StateActionPair;
 
 public class QLearningAgent {
-	final static double alpha = 0.8;
-	final static double gamma = 0.4;
+	final static double alpha = 0.4;
+	final static double gamma = 0.8;
 	static double epsilon = 0.99;
 
+	private State previousState;
+	private Action previousAction;
+	private Reward previousReward;
+
 	private State currentState;
-	private Action lastAction;
-	private Reward lastReward;
 
 	private Action nextAction;
 
 	static ArrayList<Action> availableActions = new ArrayList<>();
 	static Hashtable<StateActionPair, Double> QLearningTable = new Hashtable<>();
 
-	public QLearningAgent(State currentState, Action lastAction) {
+	public QLearningAgent(State currentState, Action previousAction) {
 		this.currentState = currentState;
-		this.lastAction = lastAction;
-		setLastReward(lastAction);
+		this.previousAction = previousAction;
+		setPreviousReward(previousAction);
 	}
 
 	public void setCurrentState(State state) {
+		previousState = currentState;
+		previousAction = nextAction;
 		currentState = state;
+		setPreviousReward(previousAction);
 	}
 
-	public void setLastAction(Action action) {
-		lastAction = action;
+	public void setPreviousAction(Action action) {
+		previousAction = action;
 	}
 
-	public void setLastReward(Action action) {
-		lastReward = new Reward(new StateActionPair(currentState, action));
+	public void setPreviousReward(Action previousAction) {
+		if (previousState != null) {
+			previousReward = new Reward(new StateActionPair(previousState, previousAction));
+		}
 	}
 
 	public Action getAction() {
-		StateActionPair stateActionPair = new StateActionPair(currentState, lastAction);
 
-		setLastReward(lastAction);
-		LearnFrom(stateActionPair, lastReward);
+		LearnFrom();
 
 		return nextAction;
 	}
@@ -53,28 +58,37 @@ public class QLearningAgent {
 		return availableActions;
 	}
 
-	private void LearnFrom(StateActionPair stateActionPair, Reward reward) {
+	private void LearnFrom() {
+		if (previousState != null) {
+			StateActionPair previousStateActionPair = new StateActionPair(previousState, previousAction);
+			if (QLearningTable.get(previousStateActionPair) == null) {
+				QLearningTable.put(previousStateActionPair, 0.0);
+			}
+			// Reinforcement
+			
+			System.out.println("previousStateActionPair : " + previousStateActionPair);
+			System.out.println("OldQValue : " + QLearningTable.get(previousStateActionPair));
+			
+			double newQValue = QLearningTable.get(previousStateActionPair) + alpha * (previousReward.getValue()
+					+ gamma * maxQValue(currentState) - QLearningTable.get(previousStateActionPair));
+			
+			System.out.println("newQValue : " + newQValue);
 
-		if (QLearningTable.get(stateActionPair) == null) {
-			QLearningTable.put(stateActionPair, 0.0);
+			QLearningTable.put(previousStateActionPair, newQValue);
+
+			double p = Math.random();
+			if (p < epsilon) {
+				// Exploration
+				nextAction = (Action) Action.getRandomAction(availableActions);
+			}
+			if (epsilon > 0.05) {
+				epsilon = epsilon * 0.9999;
+			}
 		}
 
-		// Reinforcement
-		double newQValue = QLearningTable.get(stateActionPair) + alpha * (reward.getValue()
-				+ gamma * maxQValue(stateActionPair.getState()) - QLearningTable.get(stateActionPair));
-		/*
-		 * double newQValue = reward.getValue() + gamma *
-		 * maxQValue(stateActionPair.getState());
-		 */
-		QLearningTable.put(stateActionPair, newQValue);
-
-		double p = Math.random();
-		if (p < epsilon) {
-			// Exploration
-			nextAction = (Action) Action.getRandomAction(availableActions);
-		}
-		if (epsilon > 0.05) {
-			epsilon = epsilon * 0.9999;
+		// initState
+		else {
+			maxQValue(currentState);
 		}
 	}
 
@@ -86,19 +100,14 @@ public class QLearningAgent {
 				if (QLearningTable.get(s) == null) {
 					QLearningTable.put(s, 0.0);
 				}
-			}
-			//System.out.println("Explored states number : " + QLearningTable.keySet().size());
-			for (StateActionPair stateActionPair : QLearningTable.keySet()) {
-				if (stateActionPair.getState().equals(state)) {
-					if (availableActions.contains(stateActionPair.getAction())) {
-						if (QLearningTable.get(stateActionPair) > maxQValue) {
-							maxQValue = QLearningTable.get(stateActionPair);
-							// Exploitation
-							nextAction = stateActionPair.getAction();
-						}
-					}
+				if (QLearningTable.get(s) > maxQValue) {
+					maxQValue = QLearningTable.get(s);
+					// Exploitation
+					nextAction = s.getAction();
 				}
 			}
+			// System.out.println("Explored states number : " +
+			// QLearningTable.keySet().size());
 		}
 		if (maxQValue == -Double.MAX_VALUE) {
 			nextAction = null;

@@ -40,7 +40,7 @@ public class MainSimulationProgram extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		System.out.println("Start method inside Thread : " + Thread.currentThread().getName());
-		obstaclesList.add(new Obstacle(3, 1.5, 0.5));
+		//obstaclesList.add(new Obstacle(3, 1.5, 0.5));
 		obstaclesList.add(new Obstacle(4, 4, 0.3));
 		obstaclesList.add(new Obstacle(0.5, 3, 0.4));
 		//obstaclesList.add(new Obstacle(0.5, 0.5, 0.5));
@@ -82,7 +82,6 @@ public class MainSimulationProgram extends Application {
 				executeDiscretisedAction((DiscretisedAction) nextAction);
 				qLearningAgent.setCurrentState(getCurrentState());
 				qLearningAgent.setAvailableActions(getAvailableActions(getCurrentState()));
-				qLearningAgent.setLastAction(nextAction);
 			}
 			graphicWindow.updateDataLabels();
 			graphicWindow.updateGraphicItems();

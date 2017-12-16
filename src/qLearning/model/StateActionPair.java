@@ -37,4 +37,9 @@ public class StateActionPair {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "StateActionPair [state=" + state + ", action=" + action + "]";
+	}
+
 }

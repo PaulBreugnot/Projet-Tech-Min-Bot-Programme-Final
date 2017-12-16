@@ -55,7 +55,7 @@ public class MainRealRobotControl extends Application {
 				executeDiscretisedAction((DiscretisedAction) nextAction);
 				qLearningAgent.setCurrentState(getCurrentState());
 				qLearningAgent.setAvailableActions(getAvailableActions(getCurrentState()));
-				qLearningAgent.setLastAction(nextAction);
+				//qLearningAgent.setLastAction(nextAction);
 			}
 			/*graphicWindow.updateDataLabels();
 			graphicWindow.updateGraphicItems();*/

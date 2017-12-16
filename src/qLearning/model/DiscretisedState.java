@@ -8,7 +8,7 @@ public class DiscretisedState extends State {
 		S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10
 	}
 
-	public static final double S0value = 0.10;
+	/*public static final double S0value = 0.10;
 	public static final double S1value = 0.129;
 	public static final double S2value = 0.216;
 	public static final double S3value = 0.361;
@@ -17,7 +17,29 @@ public class DiscretisedState extends State {
 	public static final double S6value = 1.144;
 	public static final double S7value = 1.521;
 	public static final double S8value = 1.956;
-	public static final double S9value = 2.449;
+	public static final double S9value = 2.449;*/
+	/*public static final double S0value = 0.10;
+	public static final double S1value = 0.25;
+	public static final double S2value = 0.40;
+	public static final double S3value = 0.55;
+	public static final double S4value = 0.70;
+	public static final double S5value = 0.85;
+	public static final double S6value = 1.10;
+	public static final double S7value = 1.25;
+	public static final double S8value = 1.40;
+	public static final double S9value = 1.55;*/
+	
+	public static final double S0value = 0.20;
+	public static final double S1value = 0.70;
+	public static final double S2value = 1.00;
+	public static final double S3value = 1.00;
+	public static final double S4value = 1.00;
+	public static final double S5value = 1.00;
+	public static final double S6value = 1.00;
+	public static final double S7value = 1.00;
+	public static final double S8value = 1.00;
+	public static final double S9value = 1.00;
+	
 	public RadarStates radar1;
 	public RadarStates radar2;
 	public RadarStates radar3;
@@ -168,6 +190,12 @@ public class DiscretisedState extends State {
 		if (radar5 != other.radar5)
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "DiscretisedState [radar1=" + radar1 + ", radar2=" + radar2 + ", radar3=" + radar3 + ", radar4=" + radar4
+				+ ", radar5=" + radar5 + "]";
 	}
 
 }
