@@ -6,10 +6,9 @@
 // XBee's DIN (RX) is connected to pin 12 (Arduino's Software TX)
 SoftwareSerial XBee(11, 12); // RX, TX
 
-char RIGHT_MOTOR_UP[5] = {'R', 'M', 'U', 'P', '\0'};
-char LEFT_MOTOR_UP[5] = {'L', 'M', 'U', 'P', '\0'};
-char RIGHT_MOTOR_DOWN[5] = {'R', 'M', 'D', 'W', '\0'};
-char LEFT_MOTOR_DOWN[5] = {'L', 'M', 'D', 'W', '\0'};
+char GO_FORWARD[5] = {'F', 'R', 'W', 'D', '\0'};
+char TURN_LEFT[5] = {'L', 'E', 'F', 'T', '\0'};
+char TURN_RIGHT[5] = {'R', 'G', 'H', 'T', '\0'};
 char CAPTORS[5] = {'C', 'P', 'T', 'R', '\0'};
 char STOP[5] = {'S', 'T', 'O', 'P', '\0'};
 
@@ -43,21 +42,20 @@ void loop() {
       Serial.println(buf);
       XBee.write(buf);
     }
-    else if (strcmp(RIGHT_MOTOR_UP, receivedQuerry) == 0) {
+    else if (strcmp(GO_FORWARD, receivedQuerry) == 0) {
       Serial.println("OK");
-      SpeedUpRightMotor(10);
+      setLeftMotorSpeed(180);
+      setRightMotorSpeed(0);
     }
-    else if (strcmp(LEFT_MOTOR_UP, receivedQuerry) == 0) {
+    else if (strcmp(TURN_LEFT, receivedQuerry) == 0) {
       Serial.println("OK");
-      SpeedUpLeftMotor(10);
+      setLeftMotorSpeed(90);
+      setRightMotorSpeed(0);
     }
-    else if (strcmp(RIGHT_MOTOR_DOWN, receivedQuerry) == 0) {
+    else if (strcmp(TURN_RIGHT, receivedQuerry) == 0) {
       Serial.println("OK");
-      SlowDownRightMotor(10);
-    }
-    else if (strcmp(LEFT_MOTOR_DOWN, receivedQuerry) == 0) {
-      Serial.println("OK");
-      SlowDownLeftMotor(10);
+      setLeftMotorSpeed(180);
+      setRightMotorSpeed(90);
     }
     else if (strcmp(STOP, receivedQuerry) == 0) {
       Serial.println("OK");

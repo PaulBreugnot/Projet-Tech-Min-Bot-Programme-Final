@@ -5,10 +5,11 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
 import gnu.io.*;
+import realRobotInterface.MainRemoteControl;
 
 public class SimpleWrite{
-	static final int waitingDelay = 2;
-    static String transmitterPortName = "COM9";
+	static final int waitingDelay = (int) 5E8;
+    static String transmitterPortName = "COM3";
     static String messageToSend;
     static Enumeration portList;
     static CommPortIdentifier portId;
@@ -23,6 +24,8 @@ public class SimpleWrite{
 
     public static void main(String[] args) {
     	//Need to close the port opened for read before reopening it to write
+    	System.out.println("Waiting to close...");
+		while(!readingThread.isAvailable()) {};
     	readingThread.closePort();
     	
         portList = CommPortIdentifier.getPortIdentifiers();
@@ -32,10 +35,10 @@ public class SimpleWrite{
             if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
                  if (portId.getName().equals(transmitterPortName)) {
                     try {
-                   	 	System.out.println("Opening port for writing : " + portId.getName());
+                   	 	//System.out.println("Opening port for writing : " + portId.getName());
                         serialPort = (SerialPort)
                             portId.open("SimpleWriteApp", 2000);
-                        System.out.println("Port successfully opened");
+                        //System.out.println("Port successfully opened");
                     } catch (PortInUseException e) {System.out.println("Failed port opening...");}
                     try {
                         outputStream = serialPort.getOutputStream();
@@ -47,10 +50,10 @@ public class SimpleWrite{
                             SerialPort.PARITY_NONE);
                     } catch (UnsupportedCommOperationException e) {System.out.println(e);}
                     try {
-                    	System.out.println("Trying to send following message :");
-                    	System.out.println(messageToSend);
+                    	//System.out.println("Trying to send following message :");
+                    	//System.out.println(messageToSend);
                         outputStream.write(messageToSend.getBytes());
-                        System.out.println("Message sent");
+                        //System.out.println("Message sent");
                     } catch (IOException e) {System.out.println(e);}
                 }
             }
@@ -58,6 +61,8 @@ public class SimpleWrite{
         closePort(serialPort);
         
         //Reopening the port in reading mode
+        System.out.println("Waiting to re-open...");
+		while(!readingThread.isAvailable()){};
     	readingThread.openPort();
     }
     
@@ -74,7 +79,7 @@ public class SimpleWrite{
     }
     
     private static void closePort(SerialPort serialPort) {
-    	System.out.println("closing port current serial port... (writing)");
+    	//System.out.println("closing port current serial port... (writing)");
 		if (serialPort != null) {
 			if (outputStream != null) {
 				try {
@@ -85,7 +90,7 @@ public class SimpleWrite{
 			}
 			serialPort.close();
 			serialPort = null;
-			System.out.println("Port closed.");
+			//System.out.println("Port closed.");
 		}
 	}
     

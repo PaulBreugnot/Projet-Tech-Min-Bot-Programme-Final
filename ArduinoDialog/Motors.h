@@ -71,3 +71,11 @@ void fullStop(){
   leftServo.write(90);
 }
 
+void setLeftMotorSpeed(int speed){
+  leftServo.write(speed);
+}
+
+void setRightMotorSpeed(int speed){
+  rightServo.write(speed);
+}
+

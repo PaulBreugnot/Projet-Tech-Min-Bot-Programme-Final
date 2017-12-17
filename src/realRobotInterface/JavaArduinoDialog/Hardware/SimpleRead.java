@@ -7,10 +7,12 @@ import gnu.io.*;
 public class SimpleRead implements Runnable, SerialPortEventListener {
     static CommPortIdentifier portId;
     static Enumeration portList;
-    static String receiverPortName = "COM9";
+    static String receiverPortName = "COM3";
     private String receivedData = "noData";
     private SerialPort serialPort;
     static InputStream inputStream;
+    
+    static boolean isAvailable = true;
     
     Thread readThread;
 
@@ -30,6 +32,7 @@ public class SimpleRead implements Runnable, SerialPortEventListener {
     }
 
     public void serialEvent(SerialPortEvent event) {
+    	isAvailable = false;
         switch(event.getEventType()) {
         case SerialPortEvent.BI:
         case SerialPortEvent.OE:
@@ -53,10 +56,15 @@ public class SimpleRead implements Runnable, SerialPortEventListener {
             } catch (IOException e) {System.out.println(e);}
             break;
         }
+        isAvailable = true; 
     }
     
+    public boolean isAvailable() {
+    	return isAvailable;
+    }
     public void closePort() {
-    	System.out.println("Closing current serial port...(reading)");
+    	//System.out.println("Closing current serial port...(reading)");
+    	isAvailable = false;
 		if (serialPort != null) {
 			serialPort.notifyOnDataAvailable(false);
 			serialPort.removeEventListener();
@@ -69,11 +77,13 @@ public class SimpleRead implements Runnable, SerialPortEventListener {
 			}
 			serialPort.close();
 			serialPort = null;
-			System.out.println("Port closed.");
+			//System.out.println("Port closed.");
 		}
+		isAvailable = true;
 	}
     
     public void openPort() {
+    	isAvailable = false;
     	portList = CommPortIdentifier.getPortIdentifiers();
     	while (portList.hasMoreElements()) {
     		portId = (CommPortIdentifier) portList.nextElement();
@@ -81,9 +91,9 @@ public class SimpleRead implements Runnable, SerialPortEventListener {
     		if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
     			if (portId.getName().equals(receiverPortName)) {
     				try {
-    					System.out.println("Opening port for reading : " + portId.getName());
+    					//System.out.println("Opening port for reading : " + portId.getName());
     					serialPort = (SerialPort) portId.open("SimpleReadApp", 2000);
-    					System.out.println("Port successfully opened");
+    					//System.out.println("Port successfully opened");
     					} catch (PortInUseException e) {
     						System.out.println("Failed port opening...");
     						System.out.println(e);
@@ -104,6 +114,7 @@ public class SimpleRead implements Runnable, SerialPortEventListener {
     			}
     		}
     	}
+    	isAvailable = true;
     }
     
     public void setReceivedData(String receivedData) {
