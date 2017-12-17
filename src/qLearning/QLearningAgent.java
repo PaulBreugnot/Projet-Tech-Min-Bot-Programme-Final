@@ -81,7 +81,7 @@ public class QLearningAgent {
 				// Exploration
 				nextAction = (Action) Action.getRandomAction(availableActions);
 			}
-			if (epsilon > 0.05) {
+			if (epsilon > 0.01) {
 				epsilon = epsilon * 0.9999;
 			}
 		}

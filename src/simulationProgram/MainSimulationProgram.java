@@ -41,9 +41,9 @@ public class MainSimulationProgram extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		System.out.println("Start method inside Thread : " + Thread.currentThread().getName());
-		//obstaclesList.add(new Obstacle(3, 1.5, 0.5));
+		obstaclesList.add(new Obstacle(2.5, 0.75, 0.5));
 		//obstaclesList.add(new Obstacle(3.5, 3.5, 0.3));
-		//obstaclesList.add(new Obstacle(1.5, 3.5, 0.4));
+		obstaclesList.add(new Obstacle(1, 4, 0.4));
 		// obstaclesList.add(new Obstacle(0.5, 0.5, 0.5));
 		// obstaclesList.add(new Obstacle(0.5, 3, 0.4));
 
