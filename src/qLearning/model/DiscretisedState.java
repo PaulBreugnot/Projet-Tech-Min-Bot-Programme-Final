@@ -29,16 +29,16 @@ public class DiscretisedState extends State {
 	public static final double S8value = 1.40;
 	public static final double S9value = 1.55;*/
 	
-	public static final double S0value = 0.20;
-	public static final double S1value = 0.70;
-	public static final double S2value = 1.00;
-	public static final double S3value = 1.00;
-	public static final double S4value = 1.00;
-	public static final double S5value = 1.00;
-	public static final double S6value = 1.00;
-	public static final double S7value = 1.00;
-	public static final double S8value = 1.00;
-	public static final double S9value = 1.00;
+	public static final double S0value = 0.10;
+	public static final double S1value = 0.50;
+	public static final double S2value = 0.90;
+	public static final double S3value = 1.50;
+	public static final double S4value = 2.00;
+	public static final double S5value = 2.00;
+	public static final double S6value = 2.00;
+	public static final double S7value = 2.00;
+	public static final double S8value = 2.00;
+	public static final double S9value = 2.00;
 	
 	public RadarStates radar1;
 	public RadarStates radar2;
@@ -68,39 +68,39 @@ public class DiscretisedState extends State {
 			return RadarStates.S0;
 		}
 
-		if (S0value <= d && d < S1value) {
+		else if (S0value <= d && d < S1value) {
 			return RadarStates.S1;
 		}
 
-		if (S1value <= d && d < S2value) {
+		else if (S1value <= d && d < S2value) {
 			return RadarStates.S2;
 		}
 
-		if (S2value <= d && d < S3value) {
+		else if (S2value <= d && d < S3value) {
 			return RadarStates.S3;
 		}
 
-		if (S3value <= d && d < S4value) {
+		else if (S3value <= d && d < S4value) {
 			return RadarStates.S4;
 		}
 
-		if (S4value <= d && d < S5value) {
+		else if (S4value <= d && d < S5value) {
 			return RadarStates.S5;
 		}
 
-		if (S5value <= d && d < S6value) {
+		else if (S5value <= d && d < S6value) {
 			return RadarStates.S6;
 		}
 
-		if (S6value <= d && d < S7value) {
+		else if (S6value <= d && d < S7value) {
 			return RadarStates.S7;
 		}
 
-		if (S7value <= d && d < S8value) {
+		else if (S7value <= d && d < S8value) {
 			return RadarStates.S8;
 		}
 
-		if (S8value <= d && d < S9value) {
+		else if (S8value <= d && d < S9value) {
 			return RadarStates.S9;
 		}
 

@@ -9,8 +9,8 @@ import qLearning.model.State;
 import qLearning.model.StateActionPair;
 
 public class QLearningAgent {
-	final static double alpha = 0.4;
-	final static double gamma = 0.8;
+	final static double alpha = 0.2;
+	final static double gamma = 0.9;
 	static double epsilon = 0.99;
 
 	private State previousState;
@@ -111,6 +111,7 @@ public class QLearningAgent {
 		}
 		if (maxQValue == -Double.MAX_VALUE) {
 			nextAction = null;
+			return 0;
 		}
 		return maxQValue;
 	}
